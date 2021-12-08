@@ -1,0 +1,44 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Book 1",
+      "author": "Author 1"
+    },
+    {
+      "id": 2,
+      "title": "Book 2",
+      "author": "Author 2"
+    }
+  ],
+  "profile": [
+    {
+      "id": 1,
+      "username": "testbox@mtxc.eu",
+      "password": "123456"
+    },
+    {
+      "username": "testone@mtxc.eu",
+      "password": "123456",
+      "id": 2
+    },
+    {
+      "username": "testone@mtxc.eu",
+      "password": "123456",
+      "id": 3
+    },
+    {
+      "username": "testone@mtxc.eu",
+      "password": "123456",
+      "id": 4
+    },
+    {
+      "username": "testone@mtxc.eu",
+      "password": "123456",
+      "id": 5
+    }
+  ],
+  "secure": {
+    "token": "test123"
+  }
+}

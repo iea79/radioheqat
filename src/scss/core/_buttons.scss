@@ -1,0 +1,50 @@
+// Style for button and pseudo button for input and link
+
+.btn {
+	color: $color_withe;
+	font-family: $main_font_family;
+	font-size: 1em;
+	font-weight: 600;
+	padding: 1.1875em 1.875em;
+	border: none;
+	outline: none;
+	text-decoration: none;
+	display: inline-block;
+	background: linear-gradient(124.35deg, #F7D378 20.25%, #FAB042 82.84%);
+	text-align: center;
+	max-width: 100%;
+	cursor: pointer;
+	border-radius: 3em;
+	transition: 0.3s;
+	text-transform: uppercase;
+	transition-property: background color border-color;
+
+	&:hover {
+		background-color: $btn_default_bg_color_hover;
+		color: $btn_default_text_color;
+	}
+
+	&:active,
+	&:focus {
+		background-color: $btn_default_bg_color_active;
+		color: $btn_default_text_color;
+	}
+	// @each $status_el, $color_bg in $el_colors {
+	// 	&_#{$status_el} {
+	// 		background-color: $color_bg;
+	// 		border-color: $color_bg;
+	// 		color: $btn_contrast_text_color;
+	//
+	// 		&:hover {
+	// 			background-color: darken($color_bg, 7%);
+	// 			color: $btn_contrast_text_color;
+	// 		}
+	//
+	// 		&:active,
+	// 		&:focus {
+	// 			background-color: darken($color_bg, 10%);
+	// 			color: $btn_contrast_text_color;
+	// 		}
+	// 	}
+	// }
+}
