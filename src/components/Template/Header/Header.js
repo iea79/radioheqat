@@ -1,4 +1,5 @@
 import {
+  NavLink,
   Link,
 } from "react-router-dom";
 import logo from '../../../assets/img/logo.png';
@@ -14,19 +15,19 @@ const Header = () => {
 
                 <ul className="menu">
                     <li className="menu__item">
-                        <Link to="/" className="menu__link">Տուն</Link>
+                        <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Տուն</NavLink>{/*Home*/}
                     </li>
                     <li className="menu__item">
-                        <Link to="#" className="menu__link">Բոլոր գրքերը</Link>
+                        <NavLink to="/books"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Բոլոր գրքերը</NavLink>{/*All books*/}
                     </li>
                     <li className="menu__item">
-                        <Link to="#" className="menu__link">Մեր մասին</Link>
+                        <NavLink to="/about"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Մեր մասին</NavLink>{/*About*/}
                     </li>
                     <li className="menu__item">
-                        <Link to="/dashboard" className="menu__link">Բաժանորդագրվել</Link>
+                        <NavLink to="/dashboard/"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Բաժանորդագրվել</NavLink>{/*Dashboard*/}
                     </li>
                     <li className="menu__item">
-                        <Link to="/login" className="menu__link">Մուտք գործել </Link>
+                        <NavLink to="/login"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Մուտք գործել </NavLink>{/*Login*/}
                     </li>
                 </ul>
 

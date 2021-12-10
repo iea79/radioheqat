@@ -1,60 +1,40 @@
-import React, { useState } from 'react';
-import {
-  Link,
-} from "react-router-dom";
-import PropTypes from 'prop-types';
-// import Unicorn from '../Unicorn';
+// import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-async function loginUser(credentials) {
-    return fetch('http://localhost:3004/profile', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(data => data.json())
-}
+import RestService from '../../services/RestService';
+import { Password, EmailField } from '../FormFields';
+import * as actions from '../../actions/actions';
 
-const Login = ({ setToken }) => {
-    const [useremail, setUserName] = useState();
-    const [password, setPassword] = useState();
+import Unicorn from '../Unicorn';
+
+const restService = new RestService();
+
+const Login = () => {
+
+    const { userEmail, userPassword } = useSelector((state) => state);
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = await loginUser({
-            useremail,
-            password
+        const token = restService.loginUser({
+            useremail: userEmail,
+            usepassword: userPassword,
         });
-        setToken(token);
+        actions.getToken(token);
     }
 
     return (
         <div className="login">
-            {/*<Unicorn />*/}
+            <Unicorn />
             <form className="form" onSubmit={handleSubmit}>
                 <legend className="form__title">Բարի վերադարձ</legend>
                 <div className="form__sub">Խնդրում ենք մուտքագրել ձեր տվյալները</div>
                 <div className="form__row">
-                    <div className="form__field">
-                        <input
-                            type="email"
-                            name="user-email"
-                            placeholder="Email"
-                            onChange={e => setUserName(e.target.value)}
-                            />
-                        <div className="form__icon"></div>
-                    </div>
+                    <EmailField />
                 </div>
                 <div className="form__row">
-                    <div className="form__field">
-                        <input
-                            type="password"
-                            name="user-password"
-                            onChange={e => setPassword(e.target.value)}
-                        />
-                        <div className="form__icon"></div>
-                    </div>
+                    <Password placeholder="Password" />
                 </div>
                 <div className="form__action form__action_inline">
                     <button className="btn" type="submit">մուտք գործել</button>
@@ -70,10 +50,5 @@ const Login = ({ setToken }) => {
         </div>
     )
 }
-
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired
-};
-
 
 export default Login;

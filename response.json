@@ -1,5 +1,5 @@
 {
-  "books": [
+  "media": [
     {
       "id": 1,
       "title": "Book 1",
@@ -11,7 +11,7 @@
       "author": "Author 2"
     }
   ],
-  "profile": [
+  "users": [
     {
       "id": 1,
       "username": "testbox@mtxc.eu",
@@ -36,6 +36,22 @@
       "username": "testone@mtxc.eu",
       "password": "123456",
       "id": 5
+    },
+    {
+      "useremail": "testbox@mtxc.eu",
+      "usepassword": "123",
+      "id": 6
+    },
+    {
+      "useremail": "testbox@mtxc.eu",
+      "usepassword": "123",
+      "id": 7
+    },
+    {
+      "username": "busforward",
+      "useremail": "busforward@gmail.com",
+      "usepassword": "1234",
+      "id": 8
     }
   ],
   "secure": {

@@ -13,14 +13,8 @@
 		z-index: 2;
 	}
 
+	&__field,
 	&__row {
-		margin-bottom: 0.875em;
-
-		&_inline {
-			display: flex;
-			gap: 0.875em;
-		}
-
 		.btn,
 		input:not([type]),
 		input[type=date],
@@ -38,7 +32,52 @@
 		textarea {
 			max-width: 100%;
 			max-width: 100%;
-			min-height: 150px;
+			min-height: 9.375em;
+		}
+	}
+
+	&__field {
+		position: relative;
+	}
+
+	&__icon {
+		position: absolute;
+		top: 0;
+		right: 0;
+		height: 100%;
+		width: 3em;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #C1BACA;
+
+		.icon_view {
+			cursor: pointer;
+
+			&.closed {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				position: relative;
+
+				&:after {
+					content: '';
+					position: absolute;
+					display: block;
+					width: 100%;
+					border-top: 0.125em solid;
+					transform: rotate(45deg);
+				}
+			}
+		}
+	}
+
+	&__row {
+		margin-bottom: 0.875em;
+
+		&_inline {
+			display: flex;
+			gap: 0.875em;
 		}
 	}
 
@@ -58,7 +97,11 @@
 		margin-bottom: 2.1875em;
 	}
 
-	&__label {}
+	&__label {
+		display: block;
+		font-size: 0.875em;
+		margin-bottom: 1em;
+	}
 
 	&__action {
 		margin: 1.6875em 0;
@@ -115,7 +158,7 @@ textarea {
 	border-radius: 0.625em;
 	font-family: $main_font_family;
 	color: #381466;
-	padding: 1.25em 1.5em;
+	padding: 1.25em 3em 1.25em 1.5em;
 	outline: none;
 	font-size: 0.875em;
 	font-weight: 600;

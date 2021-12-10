@@ -1,11 +1,15 @@
 // Breadcrumb ==================================================================
 
 .breadcrumb {
-	margin: 1.1em 0;
-	padding: 0;
-	display: flex;
-	flex-wrap: wrap;
-	align-items: center;
+	margin-bottom: 1.8125em;
+
+	ul {
+		margin: 1.1em 0;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+	}
 
 	li {
 		display: inline-block;
@@ -16,8 +20,9 @@
 			&:before {
 				content: '/';
 				display: inline-block;
-				margin: 0 1.2em;
-				color: rgba(29, 29, 27, 0.5);
+				margin: 0 0.5em;
+				color: #9171BA;
+				// color: rgba(29, 29, 27, 0.5);
 			}
 		}
 
@@ -25,15 +30,20 @@
 			a {
 				cursor: default;
 				text-decoration: none;
-				color: $main_color;
+				color: $color_withe;
 				text-decoration: none;
+
+				&:hover {
+					text-decoration: none;
+				}
 			}
 		}
 
 		a {
 			font-size: 1em;
-			color: rgba(29, 29, 27, 0.5);
+			// color: rgba(29, 29, 27, 0.5);
 			text-decoration: none;
+			color: #9171BA;
 
 			&:hover {
 				text-decoration: underline;

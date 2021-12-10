@@ -1,10 +1,12 @@
 import React from 'react';
-import loginBg from '../../assets/img/login-bg.svg';
+// import {ReactComponent as UnicornBg} from '../../assets/img/login-bg.svg';
+import UnicornBg from '../../assets/img/unicorn.png';
 
 const Unicorn = () => {
     return (
         <div className="loginBg">
-            <img src={loginBg} alt=""/>
+            {/*<UnicornBg />*/}
+            <img src={UnicornBg} alt=""/>
         </div>
     )
 }
