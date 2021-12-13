@@ -2,10 +2,8 @@ import React from 'react';
 import {
   Link,
 } from "react-router-dom";
-// import { useSelector, useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { Password, NameField, EmailField } from '../FormFields';
-import * as actions from '../../actions/actions';
+// import * as actions from '../../actions/actions';
 import RestService from '../../services/RestService';
 
 import Unicorn from '../Unicorn';
@@ -13,16 +11,13 @@ import Unicorn from '../Unicorn';
 const restService = new RestService();
 
 const Registration = () => {
-    const { userName, userEmail, userPassword } = useSelector((state) => state);
-
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = restService.registerUser({
-            username: userName,
-            useremail: userEmail,
-            usepassword: userPassword,
-        });
-        await actions.getToken(token);
+        let data = {};
+        const formData = new FormData(e.currentTarget);
+        formData.forEach((value, key) => data[key] = value);
+        const register = await restService.registerUser(data);
+        console.log(register);
     }
 
     return (

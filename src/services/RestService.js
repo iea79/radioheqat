@@ -13,28 +13,53 @@ export default class RestService {
         return await res.json();
     }
 
-    async loginUser(credentials) {
-        // console.log(credentials);
-        const token = await this.getResource('/users', {
+    async loginUser(data) {
+        console.log(data);
+        if (data['user-email'] === '' || data['user-email'].length < 3) {
+            console.log('Wrong Email');
+            return {error: 'Wrong Email'};
+        }
+        if (data['user-password'] === '') {
+            console.log('Wrong Password');
+            return {error: 'Wrong Password'};
+        }
+        const resp = await this.getResource('/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(credentials)
+            body: JSON.stringify(data)
         })
         .then(data => data.json())
+        // Эмуль ответа с токеном
+        // const resp = {token: 'test123'};
+        // Эмуль ответа с ошибкой
+        // const resp = {error: 'Error error error error error!!!'};
 
-        return await token;
+        // return resp;
+        return await resp;
     }
 
-    async registerUser(credentials) {
-        // console.log(credentials);
+    async registerUser(data) {
+        console.log(data);
+        if (data['user-name'] === '' || data['user-name'].length < 3) {
+            console.log('Wrong Name');
+            return {error: 'Wrong Name'};
+        }
+        if (data['user-email'] === '' || data['user-email'].length < 3) {
+            console.log('Wrong Email');
+            return {error: 'Wrong Email'};
+        }
+        if (data['user-password'] !== data['confirm-password']) {
+            console.log('Password Conform Wrong');
+            return {error: 'Password Conform Wrong'};
+        }
         const token = await this.getResource('/users', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(credentials)
+            body: JSON.stringify(data)
         })
         .then(data => data.json())
 

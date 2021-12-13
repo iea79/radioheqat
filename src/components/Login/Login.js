@@ -1,11 +1,13 @@
 // import React, { useState } from 'react';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import RestService from '../../services/RestService';
 import { Password, EmailField } from '../FormFields';
-import * as actions from '../../actions/actions';
+import Dashboard from '../Dashboard';
+import { getToken, setError } from '../../actions/actions';
+import Error from '../Error';
 
 import Unicorn from '../Unicorn';
 
@@ -13,15 +15,29 @@ const restService = new RestService();
 
 const Login = () => {
 
-    const { userEmail, userPassword } = useSelector((state) => state);
+    const dispatch = useDispatch();
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const token = restService.loginUser({
-            useremail: userEmail,
-            usepassword: userPassword,
-        });
-        actions.getToken(token);
+        let data = {};
+        const formData = new FormData(e.currentTarget);
+        formData.forEach((value, key) => data[key] = value);
+        const auth = await restService.loginUser(data);
+        console.log(auth);
+
+        if (auth.error) {
+            dispatch(setError(auth.error));
+            // error = <Error />;
+            // console.log(error);
+        }
+
+        if (auth.token) {
+            dispatch(getToken(auth.token));
+            console.log(1);
+            dispatch(setError(false));
+            console.log(2);
+            return <Dashboard />;
+        }
     }
 
     return (
@@ -47,6 +63,7 @@ const Login = () => {
                     </div>
                 </div>
             </form>
+            <Error />
         </div>
     )
 }

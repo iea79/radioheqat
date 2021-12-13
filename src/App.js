@@ -1,13 +1,15 @@
 // import logo from './logo.svg';
-import  React, { useState } from 'react';
+import  React from 'react';
 import {
     Outlet
-  // Routes,
-  // Route,
+    // Routes,
+    // Route,
 } from "react-router-dom";
 // import  Dashboard from './components/Dashboard';
 // import  Registration from './components/Registration';
+import { useSelector } from 'react-redux';
 import  Login from './components/Login';
+// import { setToken } from './actions/actions';
 // import  {Home} from './pages';
 // import RestService from './services/rest-service';
 
@@ -15,28 +17,31 @@ import './scss/style.scss';
 
 function App() {
 
-    const isHome = () => {
+    const state = useSelector(state => state);
+    const token = useSelector(state => state.token);
+    // const dispatch = useDispatch();
+
+    console.log(state);
+
+    const isDashboard = () => {
         let check = false,
             url = document.location.pathname;
 
-        if (url === "/") {
+        if (url === "/dashboard/") {
             check = true;
         }
 
         return check;
     }
 
-    const [token, setToken] = useState();
-
     // console.log(token);
 
-    if (!isHome() && token) {
-        return <Login setToken={setToken} />
+    if (isDashboard && !token) {
+        return <Login />
+    } else {
+        return <Outlet />;
     }
 
-    return (
-        <Outlet />
-    )
 }
 
 export default App;

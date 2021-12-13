@@ -34,6 +34,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 token: false,
             };
+        case 'SET_ERROR':
+            return {
+                ...state,
+                error: action.payload,
+            };
         default:
             return state;
     };
