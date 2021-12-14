@@ -11,6 +11,7 @@ import { Home } from './pages';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import Dashboard from './components/Dashboard';
+import Books from './components/Books';
 import Account from './components/Dashboard/Account';
 import History from './components/Dashboard/History';
 import ResetPassword from './components/Dashboard/ResetPassword';
@@ -25,6 +26,7 @@ ReactDOM.render(
                 <Routes>
                     <Route path="/" element={<App />}>
                         <Route index path="" element={<Home />} />
+                        <Route path="books" element={<Books />} />
                         <Route path="login" element={<Login />} />
                         <Route path="registration" element={<Registration />} />
                         <Route path="dashboard" element={<Dashboard />}>

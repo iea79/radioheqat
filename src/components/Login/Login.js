@@ -27,15 +27,11 @@ const Login = () => {
 
         if (auth.error) {
             dispatch(setError(auth.error));
-            // error = <Error />;
-            // console.log(error);
         }
 
         if (auth.token) {
             dispatch(getToken(auth.token));
-            console.log(1);
             dispatch(setError(false));
-            console.log(2);
             return <Dashboard />;
         }
     }

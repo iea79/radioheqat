@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { setPassword } from '../../actions/actions';
 
 const Password = ({ placeholder="****", FieldName="user-password" }) => {
-    const dispatch = useDispatch();
+
     const [ passwordShown, setPasswordShown ] = useState(false);
 
     const togglePassword = () => {
@@ -15,7 +13,6 @@ const Password = ({ placeholder="****", FieldName="user-password" }) => {
             <input
                 type={passwordShown ? "text" : "password"}
                 placeholder={placeholder}
-                onBlur={e => dispatch(setPassword(e.target.value))}
                 name={FieldName}
             />
             <div className="form__icon" onClick={togglePassword}>

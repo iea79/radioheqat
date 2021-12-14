@@ -219,4 +219,58 @@
 
 }
 
-.btn {}
+.error {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+
+    &__item {
+        position: relative;
+        padding: 1em;
+        background: red;
+        color: #fff;
+        width: 15.625em;
+        animation: fadeUp 0.5s;
+    }
+
+    &__close {
+        position: absolute;
+        right: 0.5em;
+        top: 0.5em;
+        width: 0.5em;
+        height: 0.5em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:after,
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            border-top: 1px solid #fff;
+            width: 100%;
+        }
+
+        &:before {
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(1em);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

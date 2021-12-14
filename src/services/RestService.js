@@ -1,10 +1,13 @@
+// import React from 'react';
+
 export default class RestService {
 
-    _server = 'http://localhost:3004';
+    _server = 'http://radioheqat.koorochka.com';
+    // _server = 'http://localhost:3004';
 
-    async getResource(url, callback) {
+    async getResource(url) {
 
-        const res = await fetch(`${this._server}${url}`, callback);
+        const res = await fetch(`${this._server}${url}`);
 
         if (!res.ok) {
             throw new Error('Error')
@@ -19,11 +22,13 @@ export default class RestService {
             console.log('Wrong Email');
             return {error: 'Wrong Email'};
         }
+
         if (data['user-password'] === '') {
             console.log('Wrong Password');
             return {error: 'Wrong Password'};
         }
-        const resp = await this.getResource('/users', {
+
+        const res = await fetch(`${this._server}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,13 +36,16 @@ export default class RestService {
             body: JSON.stringify(data)
         })
         .then(data => data.json())
-        // Эмуль ответа с токеном
-        // const resp = {token: 'test123'};
-        // Эмуль ответа с ошибкой
-        // const resp = {error: 'Error error error error error!!!'};
 
-        // return resp;
-        return await resp;
+
+        // Эмуль ответа с токеном
+        // const res = {token: 'test123'};
+        // Эмуль ответа с ошибкой
+        // const res = {error: 'Error error error error error!!!'};
+
+        console.log(res);
+
+        return await res;
     }
 
     async registerUser(data) {
@@ -46,15 +54,18 @@ export default class RestService {
             console.log('Wrong Name');
             return {error: 'Wrong Name'};
         }
+
         if (data['user-email'] === '' || data['user-email'].length < 3) {
             console.log('Wrong Email');
             return {error: 'Wrong Email'};
         }
+
         if (data['user-password'] !== data['confirm-password']) {
             console.log('Password Conform Wrong');
             return {error: 'Password Conform Wrong'};
         }
-        const token = await this.getResource('/users', {
+
+        const token = await fetch(`${this._server}/users`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -67,7 +78,9 @@ export default class RestService {
     }
 
     async getMediaList() {
-        const list = await this.getResource('/media');
+        const list = await this.getResource('/books');
+        // const list = await fetch(`${this._server}/books`)
+        // .then(data => data.json());
 
         console.log(list);
 

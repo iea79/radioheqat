@@ -23,11 +23,11 @@ function App() {
 
     console.log(state);
 
-    const isDashboard = () => {
+    const isHome = () => {
         let check = false,
             url = document.location.pathname;
 
-        if (url === "/dashboard/") {
+        if (url === "/") {
             check = true;
         }
 
@@ -36,11 +36,10 @@ function App() {
 
     // console.log(token);
 
-    if (isDashboard && !token) {
+    if (!isHome && !token) {
         return <Login />
-    } else {
-        return <Outlet />;
     }
+    return <Outlet />;
 
 }
 
