@@ -25,12 +25,12 @@ ReactDOM.render(
             <main className="main">
                 <Routes>
                     <Route path="/" element={<App />}>
-                        <Route index path="" element={<Home />} />
+                        <Route index element={<Home />} />
                         <Route path="books" element={<Books />} />
                         <Route path="login" element={<Login />} />
                         <Route path="registration" element={<Registration />} />
                         <Route path="dashboard" element={<Dashboard />}>
-                            <Route index path="" element={<Account />} />
+                            <Route index element={<Account />} />
                             <Route path="history" element={<History />} />
                             <Route path="reset-password" element={<ResetPassword />} />
                         </Route>

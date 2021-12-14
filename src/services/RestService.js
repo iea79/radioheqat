@@ -2,8 +2,8 @@
 
 export default class RestService {
 
-    _server = 'http://radioheqat.koorochka.com';
-    // _server = 'http://localhost:3004';
+    // _server = 'https://radioheqat.koorochka.com';
+    _server = 'http://localhost:3004';
 
     async getResource(url) {
 
@@ -28,7 +28,7 @@ export default class RestService {
             return {error: 'Wrong Password'};
         }
 
-        const res = await fetch(`${this._server}/auth/login`, {
+        const res = await fetch(`${this._server}/auth/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -78,9 +78,9 @@ export default class RestService {
     }
 
     async getMediaList() {
-        const list = await this.getResource('/books');
         // const list = await fetch(`${this._server}/books`)
-        // .then(data => data.json());
+        const list = await fetch(`${this._server}/books`)
+            .then(data => data.json());
 
         console.log(list);
 

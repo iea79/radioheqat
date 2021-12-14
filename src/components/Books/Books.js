@@ -1,28 +1,35 @@
-// import React from 'react';
+import React, { useState, useEffect } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 import RestService from '../../services/RestService';
+import Book from './Book';
 
 const restService = new RestService();
 
-const Book = (key, title) => {
-    return <div key={key} className="book__item">{title}</div>
-}
-
 const Books = () => {
 
-    const renderList = async () => {
-        await restService.getMediaList().forEach((item, i) => {
-            console.log(item);
-        });
+    const [books, setBooks] = useState([]);
 
+    useEffect(() => {
+        if (!books.length) {
+            getBooks();
+        }
+    })
+
+    const getBooks = () => {
+        restService.getMediaList()
+        .then(json => {
+            setBooks(json);
+        })
     }
-    // const list = restService.getMediaList();
-    // console.log([list]);
+
+    console.log(books);
 
     return (
-        <div className="bookList">
+        <div className="book">
             {
-                renderList
+                books.map((data, key) => {
+                    return  <Book key={key} props={data} />
+                })
             }
         </div>
     )

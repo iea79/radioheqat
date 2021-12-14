@@ -25,6 +25,7 @@ const Registration = () => {
         formData.forEach((value, key) => data[key] = value);
         const register = await restService.registerUser(data);
         console.log(register);
+        
         if (register.error) {
             dispatch(setError(register.error));
         }
