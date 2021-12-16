@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 
 import RestService from '../../services/RestService';
 import { Password, EmailField } from '../FormFields';
-import Dashboard from '../Dashboard';
+import {Dashboard} from '../Dashboard';
 import { getToken, setError } from '../../actions/actions';
 import Error from '../Error';
 

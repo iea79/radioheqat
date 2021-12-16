@@ -1,32 +1,55 @@
 // Pagination ==================================================================
+
 .pagination {
-	margin: 25px 0;
+	margin: 5.8125em 0 2em;
+	width: 100%;
 	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	ul {
+		margin: auto;
+	}
+
 	li {
 		display: inline-block;
+
 		a {
 			display: block;
 			text-align: center;
+			font-size: 1.125em;
+			color: #9171BA;
+			cursor: pointer;
+			margin: 0 1em;
 		}
-		&.prev, &.next {
+
+		&.selected a {
+			color: #F7D174;
+			cursor: default;
+		}
+
+		&.next,
+		&.previous {
 			a {
-				&:before {					
-				}
+				&:before {}
 			}
 		}
-		&.prev {
+
+		&.previous {
 			a {
 				&:before {
 					content: '<';
-					
+
 				}
 			}
 		}
+
 		&.next {
 			a {
 				&:before {
 					content: '>';
-					
+
 				}
 			}
 		}

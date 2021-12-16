@@ -1,20 +1,29 @@
+import React, { useState, useEffect } from 'react';
+import BooksPaginated from '../Books/BooksPaginated';
+import RestService from '../../services/RestService';
+
+const restService = new RestService();
+
 const History = () => {
+    const [books, setBooks] = useState([]);
+
+    useEffect(() => {
+        if (!books.length) {
+            getBooks();
+        }
+        console.log(books);
+        console.log('Update book array');
+    }, [books])
+
+    const getBooks = () => {
+        restService.getHistryList()
+        .then(json => {
+            setBooks(json);
+        })
+    }
+
     return (
-        <div className="books">
-            <div className="books__item">
-                <div className="books__content">
-                    <div className="books__title"></div>
-                    <div className="books__player"></div>
-                    <div className="books__autor">
-                        <div className="books__photo"></div>
-                        <div className="books__info">
-                            <div className="books__name"></div>
-                            <div className="books__sub"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <BooksPaginated booksPerPage={8} books={books} />
     )
 }
 

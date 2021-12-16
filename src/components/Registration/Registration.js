@@ -5,7 +5,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 import { Password, NameField, EmailField } from '../FormFields';
-import Dashboard from '../Dashboard';
+import {Dashboard} from '../Dashboard';
 import { getToken, setError } from '../../actions/actions';
 import RestService from '../../services/RestService';
 import Error from '../Error';
@@ -25,7 +25,7 @@ const Registration = () => {
         formData.forEach((value, key) => data[key] = value);
         const register = await restService.registerUser(data);
         console.log(register);
-        
+
         if (register.error) {
             dispatch(setError(register.error));
         }

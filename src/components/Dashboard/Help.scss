@@ -1,0 +1,19 @@
+.helpForm {
+    padding: 0.6em 3em 0;
+
+    .btn {}
+
+    textarea {
+        border: 1px solid rgba(56, 20, 102, 0.1);
+        height: 14.125em;
+    }
+
+    .form__label {
+        font-size: 1em;
+        margin-bottom: 1.5em;
+    }
+
+    .form__row {
+        margin-bottom: 0.2em;
+    }
+}

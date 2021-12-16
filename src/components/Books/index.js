@@ -1,3 +1,4 @@
-import Books from './Books';
+import Book from './Book';
+import BooksPaginated from './BooksPaginated';
 
-export default Books;
+export { Book, BooksPaginated };

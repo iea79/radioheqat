@@ -1,0 +1,249 @@
+.books {
+    &__head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        margin-bottom: 4.1875em;
+
+        .page__title {
+            @media (min-width: 768px) {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.125em;
+    }
+
+    &__item {
+        background: linear-gradient(107.43deg, #82278A 1.96%, #6D2BD7 97.51%);
+        border-radius: 1.625em;
+        padding: 1.6875em 2.25em;
+        width: calc(33.3% - 1.125em);
+        min-width: 28.875em;
+        min-height: 16.25em;
+        text-decoration: none;
+        display: flex;
+        position: relative;
+
+        .dashboard__content & {
+            width: calc(50% - 1.125em);
+        }
+
+        .bookPage & {
+            width: 63.5em;
+            min-height: 35.6875em;
+            padding: 3.8125em 5em;
+            border-radius: 3.5em;
+            margin-bottom: 12.125em;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        max-width: 16.0625em;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+
+        .bookPage & {
+            max-width: 30.25em;
+        }
+    }
+
+    &__title {
+        font-size: 1.4375em;
+        line-height: 1.3;
+        margin-bottom: 0.9375em;
+
+        .bookPage & {
+            font-size: 3.1875em;
+        }
+    }
+
+    &__player {
+        margin-bottom: 2.9375em;
+        width: 10.375em;
+
+        .bookPage & {
+            width: 22.875em;
+        }
+    }
+
+    &__author {
+        display: flex;
+        align-items: center;
+
+        .bookPage & {
+            font-size: 2.15em;
+        }
+    }
+
+    &__spacer {
+        flex-grow: 1;
+    }
+
+    &__photo {
+        flex: none;
+        width: 2.25em;
+        height: 2.25em;
+        border-radius: 50%;
+        overflow: hidden;
+        background: #6D2BD7;
+        margin-right: 0.5625em;
+
+        img {
+            display: block;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__info {}
+
+    &__name {
+        font-size: 0.625em;
+        margin-bottom: 0.5625em;
+    }
+
+    &__descr {
+        font-size: 0.625em;
+        color: #BEBDBD;
+    }
+
+    &__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        img {
+            display: block;
+            object-fit: contain;
+            object-position: right bottom;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+}
+
+.sorting {
+    display: flex;
+
+    &__item {
+        cursor: pointer;
+        color: #9171BA;
+        margin-left: 4.375em;
+        font-weight: 600;
+        font-size: 0.875em;
+        position: relative;
+        transition: color 0.5s;
+
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            font-size: 1.1em;
+            width: 0.4375em;
+            height: 0.4375em;
+            border-radius: 50%;
+            background: linear-gradient(124.35deg, #F7D378 20.25%, #FAB042 82.84%);
+            bottom: -1.5em;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        &.active {
+            cursor: default;
+            color: #F6D378;
+
+            &:before {
+                opacity: 1;
+            }
+
+        }
+    }
+
+}
+
+.bookPage {
+    &__item {}
+
+    a {
+        cursor: default;
+    }
+
+    &__foot {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 4em;
+    }
+
+    &__cover:not(:empty) {
+        flex: none;
+        width: 22.5em;
+        margin-right: 6.1875em;
+        margin-bottom: 1.75em;
+
+        img {
+            border-radius: 2.5em;
+            display: block;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__descr {}
+
+    &__list {
+        dl {
+            font-size: 1.75em;
+            margin: 0 0 1em;
+
+            &:not([class]) {
+                display: flex;
+                gap: 1em;
+            }
+        }
+
+        dd,
+        dt {
+            padding: 0;
+            margin: 0;
+        }
+
+        dt {
+            font-weight: 600;
+        }
+
+        dd {
+            font-weight: 400;
+        }
+
+        .dlCol {
+            dt {
+                margin-bottom: 0.8em;
+            }
+
+            dd {
+                font-size: 0.75em;
+                line-height: 1.7;
+            }
+        }
+    }
+
+}

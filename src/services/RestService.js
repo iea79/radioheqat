@@ -3,7 +3,8 @@
 export default class RestService {
 
     // _server = 'https://radioheqat.koorochka.com';
-    _server = 'http://localhost:3004';
+    // _server = 'http://localhost:3004';
+    _server = 'http://radioheqat.frontendie.ru:3004';
 
     async getResource(url) {
 
@@ -87,13 +88,37 @@ export default class RestService {
         return await list;
     }
 
-    async getMediaItem(id) {
-        const res = await this.getResource('/media/');
-        const item = res.find( (el) => {
-            // console.log(`el.id: ${el.id}, id: ${id}`);
-            return el.id === +id;
-        })
-        console.log(item);
-        return item;
+    async getHistryList() {
+        // const list = await fetch(`${this._server}/books`)
+        const list = await fetch(`${this._server}/books`)
+            .then(data => data.json());
+
+        console.log(list);
+
+        return await list;
+    }
+
+    async getFavoriteList() {
+        // const list = await fetch(`${this._server}/books`)
+        const list = await fetch(`${this._server}/books`)
+            .then(data => data.json());
+
+        console.log(list);
+
+        return await list;
+    }
+
+    async getBookPage(id) {
+        // console.log(id);
+        const res = await fetch(`${this._server}/books/${id}`)
+            .then(data => data.json());
+
+        // console.log(res);
+        // const item = res.find( (el) => {
+        //     // console.log(`el.id: ${el.id}, id: ${id}`);
+        //     return el.id === +id;
+        // })
+        // console.log(item);
+        return res;
     }
 }
