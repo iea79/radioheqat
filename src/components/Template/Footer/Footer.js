@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Footer.scss';
 
 import footerLogo from '../../../assets/img/logo-footer.png';
@@ -8,7 +8,19 @@ import appStore from '../../../assets/img/app-store.png';
 import googlePlay from '../../../assets/img/google-play.png';
 
 const Footer = () => {
-    return (
+    const history = useNavigate();
+    const [path, getPathname] = useState();
+
+    useEffect(() => {
+        const pathname = ["/login", "/registration"].includes(document.location.pathname);
+        if (!pathname) {
+            getPathname(true);
+        } else {
+            getPathname(false);
+        }
+    }, [history]);
+
+    return !path ? '' : (
         <footer className="footer">
             <div className="footer__bg">
                 <img src={footerBg} alt="Background"/>

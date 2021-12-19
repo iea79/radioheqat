@@ -35,40 +35,42 @@ const BookPage = () => {
     }
 
     return (
-        <div className="bookPage">
-            <Breadcrumbs title={book.bookTitle} />
-            <div className="page__title">{book.bookTitle}</div>
+        <main className="main">
+            <div className="bookPage">
+                <Breadcrumbs title={book.bookTitle} />
+                <div className="page__title">{book.bookTitle}</div>
 
-            <div className="bookPage__item">
-                <Book props={book} />
-            </div>
-            <div className="page__title">Ավելին գրքի մասին</div>
-            <div className="bookPage__foot">
-                <div className="bookPage__cover">
-                    {renderCover(book.bookCover)}
+                <div className="bookPage__item">
+                    <Book props={book} />
                 </div>
-                <div className="bookPage__descr">
-                    <div className="bookPage__list">
-                        <dl>
-                            <dt>Վերնագիր՝ </dt>
-                            <dd>Դավիթ Սասունսկի</dd>
-                        </dl>
-                        <dl>
-                            <dt>Հեղինակ՝ </dt>
-                            <dd>ժողովրդական հեքիաթ</dd>
-                        </dl>
-                        <dl>
-                            <dt>Կարդում է՝ </dt>
-                            <dd>Անուն Ազգանուն</dd>
-                        </dl>
-                        <dl className="dlCol">
-                            <dt>Գրքի սյուժեն</dt>
-                            <dd>«Սասունցի Դավիթը» աշխույժ արձագանքն է Հայաստանում 9-րդ դարում տեղի ունեցած իրադարձություններին։ Ինչպես մյուս ժողովուրդների էպոսը, այնպես էլ հայոց էպոսն ի սկզբանե եզակի ու բաղկացուցիչ բան չէր։ Ըստ պրոֆեսոր Կ.Մելիք-Օղանջանյանի, այն բաղկացած է երեք վիպական ստեղծագործություններից, որոնք սկզբում գոյություն են ունեցել ինքնուրույն՝ լեգենդները Սանասար և Բաղդասար եղբայրների՝ «Սասունի տան հիմնադիրների» մասին, Մհեր Ավագի և Մհերի Կրտսերի </dd>
-                        </dl>
+                <div className="page__title">Ավելին գրքի մասին</div>
+                <div className="bookPage__foot">
+                    <div className="bookPage__cover">
+                        {renderCover(book.bookCover)}
+                    </div>
+                    <div className="bookPage__descr">
+                        <div className="bookPage__list">
+                            <dl>
+                                <dt>Վերնագիր՝ </dt>
+                                <dd>Դավիթ Սասունսկի</dd>
+                            </dl>
+                            <dl>
+                                <dt>Հեղինակ՝ </dt>
+                                <dd>ժողովրդական հեքիաթ</dd>
+                            </dl>
+                            <dl>
+                                <dt>Կարդում է՝ </dt>
+                                <dd>Անուն Ազգանուն</dd>
+                            </dl>
+                            <dl className="dlCol">
+                                <dt>Գրքի սյուժեն</dt>
+                                <dd>«Սասունցի Դավիթը» աշխույժ արձագանքն է Հայաստանում 9-րդ դարում տեղի ունեցած իրադարձություններին։ Ինչպես մյուս ժողովուրդների էպոսը, այնպես էլ հայոց էպոսն ի սկզբանե եզակի ու բաղկացուցիչ բան չէր։ Ըստ պրոֆեսոր Կ.Մելիք-Օղանջանյանի, այն բաղկացած է երեք վիպական ստեղծագործություններից, որոնք սկզբում գոյություն են ունեցել ինքնուրույն՝ լեգենդները Սանասար և Բաղդասար եղբայրների՝ «Սասունի տան հիմնադիրների» մասին, Մհեր Ավագի և Մհերի Կրտսերի </dd>
+                            </dl>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     );
 }
 

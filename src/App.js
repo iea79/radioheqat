@@ -1,45 +1,42 @@
-// import logo from './logo.svg';
-import  React from 'react';
-import {
-    Outlet
-    // Routes,
-    // Route,
-} from "react-router-dom";
-// import  Dashboard from './components/Dashboard';
-// import  Registration from './components/Registration';
-import { useSelector } from 'react-redux';
+import  React, { useEffect, useState } from 'react';
+import { Outlet, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux';
 import  Login from './components/Login';
-// import { setToken } from './actions/actions';
-// import  {Home} from './pages';
-// import RestService from './services/rest-service';
+import { getToken } from './actions/actions';
 
 import './scss/style.scss';
 
 function App() {
-
+    const navigate = useNavigate();
+    const [path, getPathname] = useState(document.location.pathname);
     const state = useSelector(state => state);
-    const token = useSelector(state => state.token);
-    // const dispatch = useDispatch();
-
     console.log(state);
 
-    const isHome = () => {
-        let check = false,
-            url = document.location.pathname;
+    // Устанавливаем фейковый токен !!! получить и сразу закомментировать
+    // const dispatch = useDispatch();
+    // dispatch(getToken('123456'));
 
-        if (url === "/") {
-            check = true;
+    // Получаем токен
+    const token = useSelector(state => state.token);
+
+
+    useEffect(() => {
+        // Доступные урлы без токена
+        const pathname = ["/", "/books", "/login", "/registration"].includes(document.location.pathname);
+
+        if (!pathname) {
+            getPathname(true);
+        } else {
+            getPathname(false);
         }
+    }, [navigate]);
 
-        return check;
+    if (path && !token) {
+        navigate('/login');
+        return <Login />;
+    } else {
+        return <Outlet />;
     }
-
-    // console.log(token);
-
-    if (!isHome && !token) {
-        return <Login />
-    }
-    return <Outlet />;
 
 }
 

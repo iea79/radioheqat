@@ -20,9 +20,9 @@ const Header = () => {
                     <li className="menu__item">
                         <NavLink to="/books"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Բոլոր գրքերը</NavLink>{/*All books*/}
                     </li>
-                    <li className="menu__item">
-                        <NavLink to="/about"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Մեր մասին</NavLink>{/*About*/}
-                    </li>
+                    {/*<li className="menu__item">
+                        <NavLink to="/about"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Մեր մասին</NavLink>
+                    </li>*/}
                     <li className="menu__item">
                         <NavLink to="/dashboard/"  className={({ isActive }) => (isActive ? 'active' : 'inactive')}>Բաժանորդագրվել</NavLink>{/*Dashboard*/}
                     </li>

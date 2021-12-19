@@ -113,12 +113,6 @@ export default class RestService {
         const res = await fetch(`${this._server}/books/${id}`)
             .then(data => data.json());
 
-        // console.log(res);
-        // const item = res.find( (el) => {
-        //     // console.log(`el.id: ${el.id}, id: ${id}`);
-        //     return el.id === +id;
-        // })
-        // console.log(item);
         return res;
     }
 }

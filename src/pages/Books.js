@@ -9,20 +9,43 @@ import '../components/Books/Books.scss';
 
 const restService = new RestService();
 
-const types = ['Ամենաճանաչված', 'Նոր ավելացված', 'հայ ժողովրական', 'Սասունցի Դավիդ'];
+// Самый популярный: Недавно добавлено: Армянский народный Давид из Сасуна
+const sortsItem = [
+    {name: 'Ամենաճանաչված', type: 'popular'},
+    {name: 'Նոր ավելացված', type: 'date'},
+    {name: 'հայ ժողովրական', type: 'peoples'},
+    {name: 'Սասունցի Դավիդ', type: 'author'}
+];
+
+const SortBooks = ({sorting}) => {
+    const [active, setActive] = useState(0);
+
+    return (
+        <div className="sorting">
+            {sortsItem.map(({name, type}, i) => (
+                <div
+                    className={"sorting__item " + (active === i ? "active" : "") }
+                    key={name}
+                    onClick={() => {
+                        sorting(type);
+                        setActive(i);
+                    }}
+                    >
+                    {name}
+                </div>
+            ))}
+        </div>
+    );
+}
 
 const Books = () => {
 
-    const [active, setActive] = useState(types[0]);
     const [books, setBooks] = useState([]);
-    const [sorted, sortBooks] = useState(books);
 
     useEffect(() => {
         if (!books.length) {
             getBooks();
         }
-        console.log(books);
-        console.log('Update book array');
     }, [books])
 
     const getBooks = () => {
@@ -32,54 +55,30 @@ const Books = () => {
         })
     }
 
-    const sortFromDate = () => {
-        console.log('sort');
-        // console.log(books);
-        const sorts = books.sort((a,b)=>{
-            const dateA = +a.publishDate;
-            const dateB = +b.publishDate;
-            // console.log(dateA);
-            // console.log(dateB);
-            return dateB - dateA;
-        });
-
-        sortBooks(sorts);
-        setBooks(sorted);
-    }
-
-    // const diff = (a, b) => {
-    //     return a.filter(i=>!b.includes(i)).concat(b.filter(i=>!a.includes(i)))
-    // }
-    // console.log(books);
-
-    const tabGroup = () => {
-      return (
-        <>
-          <div className="sorting">
-            {types.map(type => (
-              <div
-                className={"sorting__item " + (active === type ? "active" : "") }
-                key={type}
-                // active={active === type}
-                onClick={() => setActive(type)}
-              >
-                {type}
-              </div>
-            ))}
-          </div>
-        </>
-      );
+    const sorting = sorting => {
+        switch (sorting) {
+            case 'date':
+                setBooks([...books].sort((a, b)=> a.publishDate < b.publishDate ? 1 : -1 ))
+                break
+            case 'author':
+                setBooks([...books].sort((a, b)=> a.author < b.author ? 1 : -1 ));
+                break
+            default:
+                return books;
+        }
     }
 
     return (
-        <div className="books">
-            <Breadcrumbs />
-            <div className="books__head">
-                <div className="page__title">Բոլոր գրքերը</div>
-                {tabGroup()}
+        <main className="main">
+            <div className="books">
+                <Breadcrumbs />
+                <div className="books__head">
+                    <div className="page__title">Բոլոր գրքերը</div>
+                    <SortBooks sorting={sorting}/>
+                </div>
+                <BooksPaginated booksPerPage={9} books={books} />
             </div>
-            <BooksPaginated booksPerPage={9} books={books} />
-        </div>
+        </main>
     )
 }
 
