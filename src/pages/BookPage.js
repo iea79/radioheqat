@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import RestService from '../services/RestService';
 import Breadcrumbs from '../components/Breadcrumbs';
 import {Book} from '../components/Books';
@@ -7,11 +8,13 @@ import {Book} from '../components/Books';
 const restService = new RestService();
 
 const BookPage = () => {
+    const { userId } = useSelector(state => state);
     const { bookId } = useParams();
     const [book, setBook] = useState([]);
 
-    console.log('getBook');
-    console.log(book);
+    // console.log('getBook');
+    // console.log(book);
+    // console.log(userId);
 
     useEffect(() => {
         if (book.length === 0) {
@@ -22,13 +25,14 @@ const BookPage = () => {
     const getBook = () => {
         restService.getBookPage(bookId)
         .then(data => {
-            console.log(data);
+            // console.log(data);
             setBook(data);
+            restService.addToHistoryList(userId, bookId);
         });
     };
 
     const renderCover = (cover) => {
-        console.log(cover);
+        // console.log(cover);
         if (cover) {
             return <img src={process.env.PUBLIC_URL + '/images/books/' + cover} alt=""/>;
         }

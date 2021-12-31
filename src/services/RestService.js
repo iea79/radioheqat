@@ -78,9 +78,16 @@ export default class RestService {
         return await token;
     }
 
-    async getMediaList() {
+    async getBooksList(ids) {
         // const list = await fetch(`${this._server}/books`)
-        const list = await fetch(`${this._server}/books`)
+        let arr = '';
+        if (ids) {
+            ids.forEach((item) => {
+                arr += `id=${item}&`;
+            });
+            console.log(arr);
+        }
+        const list = await fetch(`${this._server}/books?${arr}`)
             .then(data => data.json());
 
         console.log(list);
@@ -88,14 +95,45 @@ export default class RestService {
         return await list;
     }
 
-    async getHistryList() {
+    async addToHistoryList(userId, bookId) {
         // const list = await fetch(`${this._server}/books`)
-        const list = await fetch(`${this._server}/books`)
+        const current = await fetch(`${this._server}/history/${userId}`)
             .then(data => data.json());
 
-        console.log(list);
+        // let book;
 
-        return await list;
+        if (current.history) {
+            const newArr = [...new Set(current.history.concat([bookId]))];
+            // console.log(newArr);
+
+            await fetch(`${this._server}/history/${userId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"id": userId, "history": newArr})
+            })
+        } else {
+            // console.log('not history');
+            await fetch(`${this._server}/history/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"id": userId, "history": [bookId]})
+            })
+        }
+    }
+
+    async getHistoryList(userId) {
+        // const list = await fetch(`${this._server}/books`)
+        const list = await fetch(`${this._server}/history/${userId}`)
+            .then(data => data.json());
+
+        console.log(list.history);
+        // console.dir(list);
+
+        return await list.history;
     }
 
     async getFavoriteList() {

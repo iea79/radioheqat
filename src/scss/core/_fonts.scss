@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'WeblySleek UI';
+    src: local('WeblySleek UI Light'), local('WeblySleekUILight'), url("../../assets/fonts/weblysleekuilight.woff2") format('woff2'), url("../../assets/fonts/weblysleekuilight.woff") format('woff'), url("../../assets/fonts/weblysleekuilight.ttf") format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WeblySleek UI';
+    src: local('WeblySleek UI Light Italic'), local('WeblySleekUILight-Italic'), url("../../assets/fonts/weblysleekuilightitalic.woff2") format('woff2'), url("../../assets/fonts/weblysleekuilightitalic.woff") format('woff'), url("../../assets/fonts/weblysleekuilightitalic.ttf") format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'WeblySleek UI';
+    src: local('WeblySleek UI Semilight'), local('WeblySleekUISemilight'), url("../../assets/fonts/weblysleekuisemilight.woff2") format('woff2'), url("../../assets/fonts/weblysleekuisemilight.woff") format('woff'), url("../../assets/fonts/weblysleekuisemilight.ttf") format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WeblySleek UI';
+    src: local('WeblySleek UI Semilight Italic'), local('WeblySleekUISemilight-Italic'), url("../../assets/fonts/weblysleekuisemilightitalic.woff2") format('woff2'), url("../../assets/fonts/weblysleekuisemilightitalic.woff") format('woff'), url("../../assets/fonts/weblysleekuisemilightitalic.ttf") format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'WeblySleek UI';
+    src: local('WeblySleek UI Semibold'), local('WeblySleekUISemibold'), url("../../assets/fonts/weblysleekuisemibold.woff2") format('woff2'), url("../../assets/fonts/weblysleekuisemibold.woff") format('woff'), url("../../assets/fonts/weblysleekuisemibold.ttf") format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'WeblySleek UI';
+    src: local('WeblySleek UI Semibold Italic'), local('WeblySleekUISemibold-Italic'), url("../../assets/fonts/weblysleekuisemibolditalic.woff2") format('woff2'), url("../../assets/fonts/weblysleekuisemibolditalic.woff") format('woff'), url("../../assets/fonts/weblysleekuisemibolditalic.ttf") format('truetype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Rursus Compact Mono';
+    src: url("../../assets/fonts/RursusCompactMono.woff2") format('woff2'), url("../../assets/fonts/RursusCompactMono.woff") format('woff'), url("../../assets/fonts/RursusCompactMono.ttf") format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}

@@ -23,7 +23,7 @@ const Favorites = () => {
     }
 
     return (
-        <BooksPaginated booksPerPage={8} books={books} />
+        <BooksPaginated booksPerPage={4} books={books} />
     )
 }
 

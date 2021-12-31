@@ -4,39 +4,11 @@ import RestService from '../services/RestService';
 // import Book from './Book';
 import Breadcrumbs from '../components/Breadcrumbs';
 import BooksPaginated from '../components/Books/BooksPaginated';
+import SortBooks from '../components/SortBooks';
 
 import '../components/Books/Books.scss';
 
 const restService = new RestService();
-
-// Самый популярный: Недавно добавлено: Армянский народный Давид из Сасуна
-const sortsItem = [
-    {name: 'Ամենաճանաչված', type: 'popular'},
-    {name: 'Նոր ավելացված', type: 'date'},
-    {name: 'հայ ժողովրական', type: 'peoples'},
-    {name: 'Սասունցի Դավիդ', type: 'author'}
-];
-
-const SortBooks = ({sorting}) => {
-    const [active, setActive] = useState(0);
-
-    return (
-        <div className="sorting">
-            {sortsItem.map(({name, type}, i) => (
-                <div
-                    className={"sorting__item " + (active === i ? "active" : "") }
-                    key={name}
-                    onClick={() => {
-                        sorting(type);
-                        setActive(i);
-                    }}
-                    >
-                    {name}
-                </div>
-            ))}
-        </div>
-    );
-}
 
 const Books = () => {
 
@@ -49,7 +21,7 @@ const Books = () => {
     }, [books])
 
     const getBooks = () => {
-        restService.getMediaList()
+        restService.getBooksList()
         .then(json => {
             setBooks(json);
         })
@@ -57,6 +29,9 @@ const Books = () => {
 
     const sorting = sorting => {
         switch (sorting) {
+            case 'popular':
+                setBooks([...books].sort((a, b)=> a.publishDate > b.publishDate ? 1 : -1 ))
+                break
             case 'date':
                 setBooks([...books].sort((a, b)=> a.publishDate < b.publishDate ? 1 : -1 ))
                 break

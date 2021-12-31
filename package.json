@@ -7,17 +7,20 @@
         "@testing-library/jest-dom": "^5.16.1",
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^12.8.3",
+        "gsap": "^3.9.0",
+        "lottie-react": "^2.1.0",
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
         "node-sass": "^7.0.0",
-        "prop-types": "^15.7.2",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
+        "prop-types": "^15.8.0",
+        "react": "^16.14.0",
+        "react-dom": "^16.14.0",
         "react-paginate": "^8.1.0",
         "react-redux": "^7.2.6",
         "react-router-dom": "^6.0.2",
         "react-scripts": "4.0.3",
         "redux": "^4.1.2",
+        "swiper": "^7.4.1",
         "use-react-router-breadcrumbs": "^3.0.1",
         "web-vitals": "^1.1.2"
     },
@@ -44,5 +47,8 @@
             "last 1 firefox version",
             "last 1 safari version"
         ]
+    },
+    "devDependencies": {
+        "react-image-webp": "^0.8.0"
     }
 }

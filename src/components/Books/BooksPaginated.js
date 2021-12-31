@@ -11,12 +11,12 @@ const BooksPaginated = ({booksPerPage, books}) => {
     const [bookOffset, setBookOffset] = useState(0);
 
     useEffect(() => {
-        const endOffset = bookOffset + booksPerPage;
+        if (books.length) {
+            const endOffset = bookOffset + booksPerPage;
 
-        setCurrentBooks(books.slice(bookOffset, endOffset));
-        setPageCount(Math.ceil(books.length / booksPerPage));
-        // console.log(currentBooks);
-
+            setCurrentBooks(books.slice(bookOffset, endOffset));
+            setPageCount(Math.ceil(books.length / booksPerPage));
+        }
     }, [bookOffset, booksPerPage, books]);
 
     const renderList = (currentBooks) => {
@@ -34,17 +34,20 @@ const BooksPaginated = ({booksPerPage, books}) => {
     return (
         <div className="books__list">
             {renderList(currentBooks)}
-            <div className="pagination">
+            {
+                pageCount > 1 ?
                 <ReactPaginate
                     breakLabel="..."
                     nextLabel=""
+                    containerClassName={"pagination"}
                     onPageChange={handlePageClick}
                     pageRangeDisplayed={5}
                     pageCount={pageCount}
                     previousLabel=""
                     renderOnZeroPageCount={null}
                 />
-            </div>
+                : ''
+            }
         </div>
     )
 }

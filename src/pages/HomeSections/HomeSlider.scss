@@ -1,0 +1,73 @@
+@import "../../scss/core/icon.scss";
+
+.fourScreen {
+    overflow: hidden;
+    margin-bottom: 8.125em;
+
+    .section {
+        &__title {}
+
+    }
+
+    &__content {}
+
+    &__head {
+        margin-bottom: 6.25em;
+    }
+
+    &__sort {}
+
+    &__slider {
+        .swiper {
+            overflow: inherit;
+
+            &-slide {
+                padding-right: 1.75em;
+            }
+
+            .swiper-button {
+                &-next,
+                &-prev {
+                    position: absolute;
+                    z-index: 3;
+                    width: 4.375em;
+                    height: 4.375em;
+                    top: 50%;
+                    margin-top: -2.1875em;
+                    background: #492677;
+                    box-shadow: 0 0.25em 6.25em rgba(0, 0, 0, 0.25);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+
+                    &:before {
+                        content: $icon_prev;
+                        font-family: 'radio';
+                    }
+
+                    &.swiper-button-disabled {
+                        display: none;
+                    }
+                }
+
+                &-prev {
+                    right: -6.875em;
+                    transform: rotate(180deg);
+                }
+
+                &-next {
+                    left: -6.875em;
+                }
+            }
+        }
+
+        .books__item {
+            font-size: 1.5em;
+            width: 100%;
+        }
+
+    }
+
+}

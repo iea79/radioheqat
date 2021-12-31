@@ -1,4 +1,5 @@
 const initialState = {
+    userId: 1,
     userEmail: '',
     userName: '',
     userPassword: '',
@@ -9,6 +10,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SET_USER_ID':
+            return {
+                ...state,
+                userId: action.payload,
+            };
         case 'SET_EMAIL':
             return {
                 ...state,
@@ -33,6 +39,10 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: false,
+                userId: null,
+                userEmail: '',
+                userName: '',
+                userPassword: '',
             };
         case 'SET_ERROR':
             return {
