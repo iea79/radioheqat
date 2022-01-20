@@ -1,39 +1,74 @@
-import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import Breadcrumbs from '../Breadcrumbs';
 import { logOut } from '../../actions/actions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import RestService from '../../services/RestService';
+import { setLoader } from '../../actions/actions';
+import Login from '../Login/Login';
+
+const restService = new RestService();
+
 
 const Dashboard = () => {
-
     const dispatch = useDispatch();
+    const { token } = useSelector(state => state);
+    const navigate = useNavigate();
+    const [ menu, setMenu ] = useState([]);
+    const [ pathname, setPathname ] = useState('');
+    const [ pageTitle, setPageTitle ] = useState('');
+
+    useEffect(() => {
+        if (!menu.length) {
+            dispatch(setLoader(true));
+            restService.getDashboardMenu()
+            .then(menuArr => {
+                setMenu(menuArr);
+                dispatch(setLoader(false));
+            });
+        }
+        setPathname(document.location.pathname);
+        menu.forEach((item) => {
+            if (item.url === pathname) {
+                setPageTitle(item.title);
+            }
+        })
+    }, [ navigate, pathname, menu, pageTitle, dispatch ]);
+
+    const handleLogOut = () => {
+        restService.revokeToken(token).then(() => {
+            // console.log(resp);
+            dispatch(logOut());
+        })
+    }
+
+    // console.log(navigate(document.location.pathname));
+
+    if (!token) return <Login />
 
     return (
         <main className="main">
             <div className="dashboard">
-                <Breadcrumbs/>
+                <Breadcrumbs title={ pageTitle }/>
 
-                <div className="page__title">Գրքի անվանումը</div>
+                <div className="page__title">{ pageTitle }</div>
                 <div className="dashboard__body">
                     <div className="dashboard__nav">
                         <ul>
+                            {
+                                menu.map(({url, title, classes}, i) => (
+                                    <li key={i}>
+                                        <NavLink
+                                            to={ url }
+                                            className={({ isActive }) => (isActive ? 'active' : 'inactive')}>
+                                            <i className={ classes[0] }></i>
+                                            <span>{ title }</span>
+                                        </NavLink>
+                                    </li>
+                                ))
+                            }
                             <li>
-                                <NavLink to="/dashboard/" className={({ isActive }) => (isActive ? 'active' : 'inactive')}><i className="icon_user"></i> My Account</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/history" className={({ isActive }) => (isActive ? 'active' : 'inactive')}><i className="icon_clock"></i> History</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/reset-password" className={({ isActive }) => (isActive ? 'active' : 'inactive')}><i className="icon_lock"></i> Փոխել գաղտնաբառը</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/list" className={({ isActive }) => (isActive ? 'active' : 'inactive')}><i className="icon_star"></i> My list</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/dashboard/help" className={({ isActive }) => (isActive ? 'active' : 'inactive')}><i className="icon_comment"></i> Need help</NavLink>
-                            </li>
-                            <li>
-                                <NavLink to="/" onClick={() => dispatch(logOut())}><i className="icon_logout"></i> Log Out</NavLink>
+                                <NavLink to="/" onClick={() => { handleLogOut() }}><i className="icon_logout"></i> <span>Log Out</span></NavLink>
                             </li>
                         </ul>
                     </div>

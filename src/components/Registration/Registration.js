@@ -1,21 +1,19 @@
 import React from 'react';
-import {
-  Link,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 
 import { Password, NameField, EmailField } from '../FormFields';
-import {Dashboard} from '../Dashboard';
-import { getToken, setError } from '../../actions/actions';
+// import {Dashboard} from '../Dashboard';
+import { getToken, setMessage, setMessageType, setEmail, setName, setUserId, setPassword } from '../../actions/actions';
 import RestService from '../../services/RestService';
-import Error from '../Error';
+import Message from '../Message';
 
 import Unicorn from '../Unicorn';
 
 const restService = new RestService();
 
 const Registration = () => {
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleSubmit = async e => {
@@ -26,14 +24,26 @@ const Registration = () => {
         const register = await restService.registerUser(data);
         console.log(register);
 
-        if (register.error) {
-            dispatch(setError(register.error));
-        }
+        if (!register.success) {
+            dispatch(setMessage(false));
+            if (register.error) {
+                dispatch(setMessage(register.error));
+            }
+            if (register.data && register.data.message) {
+                dispatch(setMessage(register.data.message));
+            }
+        } else {
+            const { user_email, ID, display_name } = register.user;
 
-        if (register.token) {
-            dispatch(getToken(register.token));
-            dispatch(setError(false));
-            return <Dashboard />;
+            dispatch(getToken(register.jwt));
+            dispatch(setEmail(user_email));
+            dispatch(setName(display_name));
+            dispatch(setUserId(ID));
+            dispatch(setPassword(data['password']));
+            // dispatch(setFavorites(auth.books_favorites));
+            navigate('/dashboard/');
+            dispatch(setMessage(register.message));
+            dispatch(setMessageType('success'));
         }
     }
 
@@ -51,8 +61,8 @@ const Registration = () => {
                         <EmailField />
                     </div>
                     <div className="form__row form__row_inline">
-                        <Password />
-                        <Password FieldName="confirm-password" />
+                        <Password name="password"/>
+                        <Password name="confirm-password" />
                     </div>
                     <div className="form__action">
                         <button className="btn" type="submit">Գրանցվել</button>
@@ -61,7 +71,7 @@ const Registration = () => {
                         </div>
                     </div>
                 </form>
-                <Error />
+                <Message />
             </div>
         </main>
     )

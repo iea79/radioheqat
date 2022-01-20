@@ -2,7 +2,11 @@
 
 .fourScreen {
     overflow: hidden;
-    margin-bottom: 8.125em;
+    margin-bottom: 4em;
+
+    @media (min-width: 768px) {
+        margin-bottom: 1.43em;
+    }
 
     .section {
         &__title {}
@@ -12,17 +16,30 @@
     &__content {}
 
     &__head {
-        margin-bottom: 6.25em;
+        margin-bottom: 3em;
+
+        @media (min-width: 768px) {
+            margin-bottom: 6.25em;
+        }
     }
 
     &__sort {}
 
     &__slider {
+        margin-right: -1em;
+        @media (min-width: 768px) {
+            margin-right: 0;
+        }
+
         .swiper {
             overflow: inherit;
 
             &-slide {
-                padding-right: 1.75em;
+                padding-right: 0.75em;
+
+                @media (min-width: 768px) {
+                    padding-right: 1.75em;
+                }
             }
 
             .swiper-button {
@@ -64,8 +81,13 @@
         }
 
         .books__item {
-            font-size: 1.5em;
+            font-size: 0.9em;
             width: 100%;
+
+            @media (min-width: 768px) {
+                font-size: 1.5em;
+                width: 100%;
+            }
         }
 
     }

@@ -1,16 +1,25 @@
 .form {
 	background: #FFFFFF;
-	width: 28.0625em;
+	// width: 28.0625em;
 	box-shadow: 0 1.875em 4.375em rgba(0, 0, 0, 0.14);
 	border-radius: 1.25em;
-	padding: 2.5em 2.8125em;
+	padding: 2.1em 1.7em;
 	color: #C1BACA;
+
+	@media (min-width: 768px) {
+		width: 28.0625em;
+		border-radius: 1.25em;
+		padding: 2.5em 2.8125em;
+	}
 
 	.login & {
 		// float: right;
-		margin-right: 6.125em;
 		position: relative;
 		z-index: 2;
+
+		@media (min-width: 768px) {
+			margin-right: 6.125em;
+		}
 	}
 
 	&__field,

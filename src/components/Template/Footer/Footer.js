@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import SocMenu from './SocMenu';
+import AppMenu from './AppMenu';
 import './Footer.scss';
 
 import footerLogo from '../../../assets/img/logo-footer.png';
 import footerBg from '../../../assets/img/footer.png';
-import appStore from '../../../assets/img/app-store.png';
-import googlePlay from '../../../assets/img/google-play.png';
+import footerLogoWp from '../../../assets/img/logo-footer.webp';
+import footerBgWp from '../../../assets/img/footer.webp';
 
 const Footer = () => {
     const history = useNavigate();
@@ -18,42 +20,28 @@ const Footer = () => {
         } else {
             getPathname(false);
         }
-    }, [history]);
+    }, [ history ]);
 
     return !path ? '' : (
         <footer className="footer">
-            <div className="footer__bg">
+            <picture className="footer__bg">
+                <source srcSet={footerBgWp} type="image/webp" />
                 <img src={footerBg} alt="Background"/>
-            </div>
+            </picture>
             <div className="footer__content">
-                <div className="footer__logo">
+                <picture className="footer__logo">
+                    <source srcSet={footerLogoWp} type="image/webp" />
                     <img src={footerLogo} alt="Logo"/>
-                </div>
+                </picture>
                 <div className="footer__nav">
                     <div className="footer__item">
                         <div className="footer__header">Հեքիաթների ռադիո</div>
                         <div className="footer__links">
-                            <Link to="" >Գաղտնիության քաղաքականություն</Link>
+                            <Link to="/privacy-policy" >Գաղտնիության քաղաքականություն</Link>
                         </div>
                     </div>
-                    <div className="footer__item">
-                        <div className="footer__header">Կոնտակտներ</div>
-                        <div className="footer__links">
-                            <Link to="">Instagram</Link>
-                            <Link to="">Youtube</Link>
-                        </div>
-                    </div>
-                    <div className="footer__item">
-                        <div className="footer__header">Բջջային հավելված</div>
-                        <div className="footer__links">
-                            <Link to="">
-                                <img src={appStore} alt="App Store"/>
-                            </Link>
-                            <Link to="">
-                                <img src={googlePlay} alt="Google play"/>
-                            </Link>
-                        </div>
-                    </div>
+                    <SocMenu />
+                    <AppMenu />
                 </div>
             </div>
         </footer>

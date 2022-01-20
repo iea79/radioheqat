@@ -4,31 +4,34 @@ import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
 import 'swiper/swiper.min.css';
 import RestService from '../../services/RestService';
 import { Book } from '../../components/Books';
+// import parse from 'html-react-parser';
 
-import './HomeSlider.scss'
+import './HomeSlider.scss';
 
 const restService = new RestService();
-const booksArr = [5,2,3,4];
 
-const HomeSlider = () => {
+const HomeSlider = (prop) => {
+    const { four_screen_title, four_screen_slider } = prop.props;
     const [books, setBook] = useState([]);
+
+    // console.log(four_screen_slider);
 
     useEffect(() => {
         if (!books.length) {
-            restService.getBooksList(booksArr)
+            restService.getBooksList(four_screen_slider)
                 .then(json => {
-                    console.log(json);
+                    // console.log(json);
                     setBook(json);
                 })
         }
-    }, [books]);
+    }, [books, four_screen_slider]);
 
     return (
         <section className="fourScreen section">
             <div className="container">
                 <div className="fourScreen__content">
                     <div className="fourScreen__head">
-                        <h2 className="section__title">լսել հեքիաթներ</h2>
+                        <h2 className="section__title">{ four_screen_title }</h2>
                         <div className="fourScreen__sort"></div>
                     </div>
                     <div className="fourScreen__slider">
@@ -49,7 +52,7 @@ const HomeSlider = () => {
                                 books.map((item, i) => {
                                     return (
                                         <SwiperSlide key={i}>
-                                            <Book props={item} />
+                                            <Book props={item.id} />
                                         </SwiperSlide>
                                     )
                                 })

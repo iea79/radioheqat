@@ -7,7 +7,9 @@
         "@testing-library/jest-dom": "^5.16.1",
         "@testing-library/react": "^11.2.7",
         "@testing-library/user-event": "^12.8.3",
+        "base-64": "^1.0.0",
         "gsap": "^3.9.0",
+        "html-react-parser": "^1.4.4",
         "lottie-react": "^2.1.0",
         "moment": "^2.29.1",
         "moment-duration-format": "^2.3.2",
@@ -26,6 +28,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
+        "compress": "react-scripts build && compress-cra -c compress-cra.json",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
@@ -49,6 +52,7 @@
         ]
     },
     "devDependencies": {
+        "compress-create-react-app": "^1.2.1",
         "react-image-webp": "^0.8.0"
     }
 }

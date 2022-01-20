@@ -1,0 +1,8 @@
+{
+    "algorithms": ["gz"],
+    "filetypes": [
+        ".css",
+        ".js"
+    ],
+    "directory": "/build"
+}

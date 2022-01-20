@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Password = ({ placeholder="****", FieldName="user-password" }) => {
+const Password = ({ placeholder="****", name="userpassword" }) => {
 
     const [ passwordShown, setPasswordShown ] = useState(false);
 
@@ -13,7 +13,7 @@ const Password = ({ placeholder="****", FieldName="user-password" }) => {
             <input
                 type={passwordShown ? "text" : "password"}
                 placeholder={placeholder}
-                name={FieldName}
+                name={name}
             />
             <div className="form__icon" onClick={togglePassword}>
                 <div className={passwordShown ? "icon_view closed" : "icon_view"}></div>

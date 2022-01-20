@@ -1,29 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import RestService from '../../services/RestService';
 
-// Самый популярный: Недавно добавлено: Армянский народный Давид из Сасуна
-const sortsItem = [
-    {name: 'Ամենաճանաչված', type: 'popular'},
-    {name: 'Նոր ավելացված', type: 'date'},
-    {name: 'հայ ժողովրական', type: 'peoples'},
-    {name: 'Սասունցի Դավիդ', type: 'author'}
-];
+const restService = new RestService();
 
-const SortBooks = ({sorting}) => {
-    const [active, setActive] = useState(0);
+const SortBooks = () => {
+    // const [ active, setActive ] = useState(0);
+    const [ sorted, setSorted ] = useState([]);
+
+    useEffect(() => {
+        if (!sorted.length) {
+            restService.getSortingMenu().then(json => {
+                console.log(json);
+                setSorted(json);
+            })
+        }
+    }, [ sorted ])
 
     return (
         <div className="sorting">
-            {sortsItem.map(({name, type}, i) => (
-                <div
-                    className={"sorting__item " + (active === i ? "active" : "") }
-                    key={name}
-                    onClick={() => {
-                        sorting(type);
-                        setActive(i);
-                    }}
+            {sorted.map(({title, url}, i) => (
+                <NavLink
+                    className="sorting__item"
+                    key={url}
+                    to={url}
                     >
-                    {name}
-                </div>
+                    {title}
+                </NavLink>
             ))}
         </div>
     );

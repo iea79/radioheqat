@@ -5,7 +5,7 @@ const NameField = () => {
         <div className="form__field">
             <input
                 type="text"
-                name="user-name"
+                name="username"
                 placeholder="Your name"
             />
             <div className="form__icon">

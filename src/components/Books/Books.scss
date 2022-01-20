@@ -1,9 +1,12 @@
 .books {
     &__head {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
         margin-bottom: 4.1875em;
+
+        @media (min-width: 768px) {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
 
         .page__title {
             @media (min-width: 768px) {
@@ -21,24 +24,33 @@
     &__item {
         background: linear-gradient(107.43deg, #82278A 1.96%, #6D2BD7 97.51%);
         border-radius: 1.625em;
-        padding: 1.6875em 2.25em;
-        width: calc(33.3% - 1.125em);
-        min-width: 28.875em;
+        padding: 1.5em;
+        width: 100%;
+        min-width: 24em;
         min-height: 16.25em;
         text-decoration: none;
         display: flex;
         position: relative;
+
+        @media (min-width: 768px) {
+            padding: 1.6875em 2.25em;
+            min-width: 28.875em;
+            width: calc(33.3% - 1.125em);
+        }
 
         .dashboard__content & {
             width: calc(50% - 1.125em);
         }
 
         .bookPage & {
-            width: 63.5em;
-            min-height: 35.6875em;
-            padding: 3.8125em 5em;
-            border-radius: 3.5em;
-            margin-bottom: 12.125em;
+
+            @media (min-width: 768px) {
+                width: 63.5em;
+                min-height: 35.6875em;
+                padding: 3.8125em 5em;
+                border-radius: 3.5em;
+                margin-bottom: 12.125em;
+            }
         }
 
         a {
@@ -49,13 +61,19 @@
     &__content {
         display: flex;
         flex-direction: column;
-        max-width: 16.0625em;
+        max-width: 19.06em;
         font-weight: 600;
         position: relative;
         z-index: 1;
 
+        @media (min-width: 768px) {
+            max-width: 16.0625em;
+        }
+
         .bookPage & {
-            max-width: 30.25em;
+            @media (min-width: 768px) {
+                max-width: 30.25em;
+            }
         }
     }
 
@@ -65,25 +83,40 @@
         margin-bottom: 0.9375em;
 
         .bookPage & {
-            font-size: 3.1875em;
+            @media (min-width: 768px) {
+                font-size: 3.1875em;
+            }
         }
     }
 
     &__player {
         margin-bottom: 2.9375em;
-        width: 10.375em;
+        width: 14.38em;
+
+        @media (min-width: 768px) {
+            width: 10.375em;
+        }
 
         .bookPage & {
-            width: 22.875em;
+            @media (min-width: 768px) {
+                width: 22.875em;
+            }
         }
     }
 
     &__author {
         display: flex;
         align-items: center;
+        font-size: 1.3em;
+
+        @media (min-width: 768px) {
+            font-size: 1em;
+        }
 
         .bookPage & {
-            font-size: 2.15em;
+            @media (min-width: 768px) {
+                font-size: 2.15em;
+            }
         }
     }
 
@@ -122,10 +155,16 @@
 
     &__image {
         position: absolute;
-        top: 0;
+        // top: 0;
+        bottom: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 11em;
+
+        @media (min-width: 768px) {
+            height: 100%;
+
+        }
 
         img {
             display: block;
@@ -134,36 +173,67 @@
             width: 100%;
             height: 100%;
         }
+
+        .anim {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+
+            svg {
+                flex: none;
+                // flex-grow: 1;
+                display: inline-block;
+                width: auto !important;
+                height: auto !important;
+                max-width: 100%;
+                max-height: 100%;
+            }
+        }
     }
 
 }
 
 .sorting {
-    display: flex;
+    display: none;
+
+    @media (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+    }
 
     &__item {
         cursor: pointer;
         color: #9171BA;
-        margin-left: 4.375em;
         font-weight: 600;
         font-size: 0.875em;
         position: relative;
         transition: color 0.5s;
+        margin: 0 3em 3em 0;
+        text-decoration: none;
 
-        &:before {
-            content: '';
-            position: absolute;
-            display: block;
-            font-size: 1.1em;
-            width: 0.4375em;
-            height: 0.4375em;
-            border-radius: 50%;
-            background: linear-gradient(124.35deg, #F7D378 20.25%, #FAB042 82.84%);
-            bottom: -1.5em;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            transition: opacity 0.5s;
+        @media (min-width: 768px) {
+            margin: 0 0 0 4.375em;
+
+            &:before {
+                content: '';
+                position: absolute;
+                display: block;
+                font-size: 1.1em;
+                width: 0.4375em;
+                height: 0.4375em;
+                border-radius: 50%;
+                background: linear-gradient(124.35deg, #F7D378 20.25%, #FAB042 82.84%);
+                bottom: -1.5em;
+                left: 50%;
+                transform: translateX(-50%);
+                opacity: 0;
+                transition: opacity 0.5s;
+            }
         }
 
         &.active {
@@ -180,16 +250,24 @@
 }
 
 .bookPage {
-    &__item {}
+    &__item {
+        margin-bottom: 4em;
+        @media (min-width: 768px) {
+            margin-bottom: 0;
+        }
+    }
 
     a {
         cursor: default;
     }
 
     &__foot {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 4em;
+        @media (min-width: 768px) {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 4em;
+
+        }
     }
 
     &__cover:not(:empty) {

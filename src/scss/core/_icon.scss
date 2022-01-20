@@ -1,7 +1,10 @@
 $icomoon-font-family: "radio" !default;
 $icomoon-font-path: "../../assets/fonts" !default;
 
-$icon_Group-188: "\e903";
+$icon_input-checked: "\e90a";
+$icon_edit-pencil: "\e90b";
+$icon_online: "\e90c";
+$icon_user: "\e903";
 $icon_clock: "\e904";
 $icon_lock: "\e905";
 $icon_star: "\e906";
@@ -10,7 +13,7 @@ $icon_logout: "\e908";
 $icon_view: "\e909";
 $icon_prev: "\e900";
 $icon_play: "\e901";
-$icon_uniE902: "\e902";
+$icon_email: "\e902";
 
 @font-face {
     font-family: '#{$icomoon-font-family}';
@@ -36,9 +39,27 @@ $icon_uniE902: "\e902";
     -moz-osx-font-smoothing: grayscale;
 }
 
+.icon_input-checked {
+    &:before {
+        content: $icon_input-checked;
+    }
+}
+
+.icon_edit-pencil {
+    &:before {
+        content: $icon_edit-pencil;
+    }
+}
+
+.icon_online {
+    &:before {
+        content: $icon_online;
+    }
+}
+
 .icon_user {
     &:before {
-        content: $icon_Group-188;
+        content: $icon_user;
     }
 }
 
@@ -92,6 +113,6 @@ $icon_uniE902: "\e902";
 
 .icon_email {
     &:before {
-        content: $icon_uniE902;
+        content: $icon_email;
     }
 }

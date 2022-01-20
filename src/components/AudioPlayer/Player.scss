@@ -4,6 +4,11 @@
     // height: 2.5em;
     border-radius: 2.5em;
     background: #fff;
+    font-size: 1.5em;
+
+    @media (min-width: 768px) {
+        font-size: 1em;
+    }
 
     &__btn {
         flex: none;
@@ -18,15 +23,17 @@
         cursor: pointer;
 
         .bookPage & {
-            width: 4.875em;
-            height: 4.875em;
+            @media (min-width: 768px) {
+                width: 4.875em;
+                height: 4.875em;
 
-            .icon_play {
-                font-size: 1.3em;
-            }
+                .icon_play {
+                    font-size: 1.3em;
+                }
 
-            .icon_pause {
-                font-size: 2em;
+                .icon_pause {
+                    font-size: 2em;
+                }
             }
         }
 
@@ -64,7 +71,9 @@
         position: relative;
 
         .bookPage & {
-            margin-right: 1em;
+            @media (min-width: 768px) {
+                margin-right: 1em;
+            }
         }
 
         img {

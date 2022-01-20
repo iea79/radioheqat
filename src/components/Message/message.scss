@@ -1,0 +1,70 @@
+.message {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    z-index: 12;
+    max-width: calc(100% - 2em);
+
+    &__item {
+        position: relative;
+        padding: 1em 2em;
+        background: red;
+        color: #fff;
+        width: 100%;
+        animation: fadeUp 0.5s;
+        font-weight: 600;
+        box-shadow: 0 1.875em 4.375em rgba(0, 0, 0, 0.14);
+        border-radius: 0.72em;
+
+        @media (min-width: 768px) {
+            width: 20.63em;
+        }
+
+        &.success {
+            background: #29446B;
+            background: linear-gradient(124.35deg, #F7D378 20.25%, #FAB042 82.84%);
+            color: #381466;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        right: 0.5em;
+        top: 0.5em;
+        width: 0.8em;
+        height: 0.8em;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:after,
+        &:before {
+            content: '';
+            position: absolute;
+            display: block;
+            border-top: 0.125em solid;
+            width: 100%;
+        }
+
+        &:before {
+            transform: rotate(45deg);
+        }
+
+        &:after {
+            transform: rotate(-45deg);
+        }
+    }
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(1em);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

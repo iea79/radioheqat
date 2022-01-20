@@ -7,36 +7,25 @@ import './Breadcrumbs.scss';
 
 // const restService = new RestService();
 
-
 const Breadcrumbs = ({title}) => {
     const routes = [
-        { path: '/books/:bookId', breadcrumb: title },
+        { path: 'book', breadcrumb: 'Books' },
+        { path: 'book/:bookId', breadcrumb: title },
+        { path: 'books/:sortName', breadcrumb: null },
     ];
 
     const breadcrumbs = useBreadcrumbs(routes);
-
-    // const breadcrumbLen = breadcrumbs.length;
-
-    // console.log(breadcrumbs);
-    // console.log(breadcrumbs.length);
 
     return (
         <div className="breadcrumb">
             <ul>
                 {
-                    breadcrumbs.map(({ breadcrumb, match }) => {
-                        // console.log(breadcrumb);
-                        // console.log(match);
-                        let path = match.pathname;
-                        if (breadcrumbs.length > 2) {
-                            path = match.pathname + '/';
-                        }
-                        return (
+                    breadcrumbs.map(({ breadcrumb, match }) => (
                             <li key={match.pathname}>
-                                <Link to={path}>{breadcrumb}</Link>
+                                <Link to={match.pathname}>{breadcrumb}</Link>
                             </li>
                         )
-                    })
+                    )
                 }
             </ul>
         </div>

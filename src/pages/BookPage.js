@@ -1,81 +1,83 @@
-import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import parser from 'html-react-parser';
 import RestService from '../services/RestService';
 import Breadcrumbs from '../components/Breadcrumbs';
 import {Book} from '../components/Books';
+import parse from 'html-react-parser';
+import { setLoader } from '../actions/actions';
 
 const restService = new RestService();
 
-const BookPage = () => {
-    const { userId } = useSelector(state => state);
+const BookPage = React.memo( () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { userId, token } = useSelector(state => state);
     const { bookId } = useParams();
-    const [book, setBook] = useState([]);
+    const [ book, setBook ] = useState(0);
+    // let bookRendered = '';
 
     // console.log('getBook');
-    // console.log(book);
-    // console.log(userId);
+    // console.log(bookId);
 
     useEffect(() => {
-        if (book.length === 0) {
-            getBook();
+        const addToHistory = () => {
+            restService.addToHistoryList(userId, bookId, token)
+            .then(json => {
+                console.log(json);
+            }).catch(err => {
+                console.log(err);
+            });
+        };
+        dispatch(setLoader(true));
+        if (!book) {
+            restService.getBookPage(bookId)
+            .then(data => {
+                setBook(data);
+                // console.log('data', data);
+                dispatch(setLoader(false));
+                if (token) {
+                    addToHistory();
+                }
+            })
+            .catch(() => {
+                dispatch(setLoader(false));
+                navigate('/404');
+            });
+        } else {
+            dispatch(setLoader(false));
         }
-    });
+        // console.log(book);
+    }, [ book, navigate ]);
 
-    const getBook = () => {
-        restService.getBookPage(bookId)
-        .then(data => {
-            // console.log(data);
-            setBook(data);
-            restService.addToHistoryList(userId, bookId);
-        });
-    };
+    if (!book || !bookId) return false;
 
-    const renderCover = (cover) => {
-        // console.log(cover);
-        if (cover) {
-            return <img src={process.env.PUBLIC_URL + '/images/books/' + cover} alt=""/>;
-        }
-    }
+    const { title, media, content } = book;
 
     return (
         <main className="main">
             <div className="bookPage">
-                <Breadcrumbs title={book.bookTitle} />
-                <div className="page__title">{book.bookTitle}</div>
+                <Breadcrumbs title={ parser(title.rendered) } />
+                <div className="page__title">{ parser(title.rendered) }</div>
 
                 <div className="bookPage__item">
-                    <Book props={book} />
+                    <Book props={book.id} />
                 </div>
                 <div className="page__title">Ավելին գրքի մասին</div>
                 <div className="bookPage__foot">
-                    <div className="bookPage__cover">
-                        {renderCover(book.bookCover)}
-                    </div>
+                    {media.cover ? <div className="bookPage__cover">
+                        <img src={ media.cover } alt=""/>
+                    </div> : ''}
                     <div className="bookPage__descr">
                         <div className="bookPage__list">
-                            <dl>
-                                <dt>Վերնագիր՝ </dt>
-                                <dd>Դավիթ Սասունսկի</dd>
-                            </dl>
-                            <dl>
-                                <dt>Հեղինակ՝ </dt>
-                                <dd>ժողովրդական հեքիաթ</dd>
-                            </dl>
-                            <dl>
-                                <dt>Կարդում է՝ </dt>
-                                <dd>Անուն Ազգանուն</dd>
-                            </dl>
-                            <dl className="dlCol">
-                                <dt>Գրքի սյուժեն</dt>
-                                <dd>«Սասունցի Դավիթը» աշխույժ արձագանքն է Հայաստանում 9-րդ դարում տեղի ունեցած իրադարձություններին։ Ինչպես մյուս ժողովուրդների էպոսը, այնպես էլ հայոց էպոսն ի սկզբանե եզակի ու բաղկացուցիչ բան չէր։ Ըստ պրոֆեսոր Կ.Մելիք-Օղանջանյանի, այն բաղկացած է երեք վիպական ստեղծագործություններից, որոնք սկզբում գոյություն են ունեցել ինքնուրույն՝ լեգենդները Սանասար և Բաղդասար եղբայրների՝ «Սասունի տան հիմնադիրների» մասին, Մհեր Ավագի և Մհերի Կրտսերի </dd>
-                            </dl>
+                            { parse(content.rendered) }
                         </div>
                     </div>
                 </div>
             </div>
         </main>
     );
-}
+} );
 
 export default BookPage;
