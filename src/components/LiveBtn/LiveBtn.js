@@ -5,7 +5,7 @@ import { setLive } from '../../actions/actions';
 import './liveBtn.scss';
 
 const LiveBtn = () => {
-    const { live } = useSelector(state => state);
+    const { live, liveLoader } = useSelector(state => state);
     const dispatch = useDispatch();
     const [ isLive, setIsLive ] = useState(live);
 
@@ -28,6 +28,9 @@ const LiveBtn = () => {
             onClick={() => {
                 dispatch(setLive(!live));
             }}>
+            {
+                liveLoader ? <i className="icon_loader"></i> : ''
+            }
             <div className="liveBtn__inner">
                 <i className="icon_play"></i>
                 <i className="icon_pause"></i>

@@ -17,15 +17,17 @@ const SecondScreen = (prop) => {
     const section = useRef();
     const isMobile = window.screen.width < 768;
 
+    // console.log(flyRef.current);
+
     const setGsapOptions = (wrapper) => {
         return {
             trigger: wrapper,
             start: '-100%',
             end: '50%',
-            onEnter: () => flyRef.current.play(),
-            onEnterBack: () => flyRef.current.stop(),
-            onLeaveBack: () => flyRef.current.play(),
-            onLeave: () => flyRef.current.stop(),
+            onEnter: () => flyRef.current && flyRef.current.play(),
+            onEnterBack: () => flyRef.current && flyRef.current.stop(),
+            onLeaveBack: () => flyRef.current && flyRef.current.play(),
+            onLeave: () => flyRef.current && flyRef.current.stop(),
             // markers: true
             // scrub: true
         }

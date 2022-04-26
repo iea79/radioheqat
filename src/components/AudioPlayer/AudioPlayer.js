@@ -1,46 +1,41 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import { useNavigate } from 'react-router-dom';
-import { setLive, setLivePaused } from '../../actions/actions';
+import { setLivePaused } from '../../actions/actions';
 import Bar from '../../assets/img/audiobar1.svg';
 
 import './Player.scss';
 
 const AudioPlayer = (props) => {
-    // console.log(props);
+
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    // const { live, livePaused } = useSelector(state => state);
     const { id, path } = props;
     const [trackProgress, setTrackProgress] = useState(0);
     const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = useRef(new Audio(path));
-    // const audioRef = useRef(new Audio());
+    const [loader, setLoader] = useState(false);
+    let audioRef = useRef(new Audio());
     const intervalRef = useRef();
-    const { duration } = audioRef.current;
+    let { duration, muted } = audioRef.current;
+
+    // console.log(muted);
+    if (muted) {
+        audioRef.current.src = path;
+        audioRef.current.load();
+    }
 
     useEffect(() => {
-        if (isPlaying) {
-            // if (!livePaused && live) {
+        if (audioRef && audioRef.current) {
+            if (isPlaying) {
                 dispatch(setLivePaused(true));
-                // dispatch(setLive(false));
-            // }
-            // audioRef.current.play();
-            // console.log(path);
-            playAudio();
-        } else {
-            // if (livePaused && live) {
+                playAudio();
+
+            } else {
                 dispatch(setLivePaused(false));
-                // dispatch(setLive(true));
-            // }
-            clearInterval(intervalRef.current);
-            audioRef.current.pause();
+                clearInterval(intervalRef.current);
+                audioRef.current.pause();
+            }
         }
     }, [ isPlaying ]);
-
-    // useEffect(() => {
-    //     setIsPlaying(false);
-    // }, [navigate])
 
     const playPause = () => {
         if (isPlaying) {
@@ -50,17 +45,33 @@ const AudioPlayer = (props) => {
         }
     }
 
-    const playAudio = () => {
-        const promise = audioRef.current.play();
-        promise.then(() => {
-            startTimer();
-        }).catch(() => {
-            audioRef.current.muted = true;
-            audioRef.current.play();
-            audioRef.current.muted = false;
-            startTimer();
-        })
-    }
+    const playAudio = async () => {
+        setLoader(true);
+
+        if (muted) {
+            // audioRef.current.load();
+            await new Promise((r) => setTimeout(r, 2000));
+        }
+
+        audioRef.current &&
+        audioRef.current.play()
+            .then((e) => {
+                if (audioRef.current.muted) {
+                    audioRef.current.muted = false;
+                }
+                setIsPlaying(true);
+                startTimer();
+                // console.log(e);
+                setLoader(false);
+                // audioRef.current.onPlaying = () => {setLoader(false)};
+            })
+            .catch((e) => {
+                setIsPlaying(false);
+                audioRef.current.muted = true;
+                // console.log(e);
+                setLoader(false);
+            });
+    };
 
     const startTimer = () => {
         clearInterval(intervalRef.current);
@@ -68,10 +79,6 @@ const AudioPlayer = (props) => {
         intervalRef.current = setInterval(() => {
             if (audioRef.current) {
                 setTrackProgress(audioRef.current.currentTime);
-
-                audioRef.current.onended = () => {
-                    setIsPlaying(false);
-                }
             }
         }, [1000]);
     }
@@ -89,16 +96,25 @@ const AudioPlayer = (props) => {
         startTimer();
     }
 
-
     const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
 
     // console.log(props);
     return (
         <div className="player" key={'book-' + id}>
-            <audio src={path ? path : ''} ref={audioRef}></audio>
-            <div className="player__btn" onClick={() => {playPause()}}>
-                { isPlaying ? <i className="icon_pause"></i> : <i className="icon_play"></i> }
-            </div>
+            {
+                loader ? <div className="player__loader"><div className="player__loaderEl"></div></div> : ''
+            }
+            <audio key={id} src="" ref={audioRef} controls autoPlay muted
+                onEnded={() => {setIsPlaying(false)}}
+                onPause={() => {
+                    setLoader(false);
+                }}
+            ></audio>
+            {
+                <div className="player__btn" onClickCapture={playPause}>
+                    { isPlaying ? <i className="icon_pause"></i> : <i className="icon_play"></i> }
+                </div>
+            }
             <div
                 className="player__progress"
                 >
@@ -113,7 +129,7 @@ const AudioPlayer = (props) => {
                     className="player__bar"
                     onChange={(e) => onScrub(e.target.value)}
                     onMouseUp={onScrubEnd}
-                    onKeyUp={onScrubEnd}
+                    onClick={onScrubEnd}
                     />
             </div>
         </div>

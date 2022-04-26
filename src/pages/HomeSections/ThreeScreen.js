@@ -1,5 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react';
-import Lottie from "lottie-react";
+import Lottie, { useLottie } from "lottie-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import parse from 'html-react-parser';
@@ -21,6 +21,18 @@ if (typeof window !== `undefined`) {
     gsap.registerPlugin(ScrollTrigger);
     gsap.core.globals("ScrollTrigger", ScrollTrigger);
 }
+
+const UncornAnim = () => {
+    const options = {
+        animationData: unicornAnim,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
 
 const ThreeScreen = (props) => {
     // console.log(props.props);
@@ -95,7 +107,7 @@ const ThreeScreen = (props) => {
                         <img src={ img1 } alt=""/>
                     </div>
                     <div className="layerUnicorn" ref={ layerUnicorn }>
-                        <Lottie animationData={ unicornAnim } />
+                        <UncornAnim />
                     </div>
                 </div>
                 : ''

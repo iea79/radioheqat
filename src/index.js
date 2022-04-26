@@ -11,6 +11,7 @@ import Message from './components/Message';
 import Loader from './components/Loader';
 import LivePlayer from './components/LivePlayer/LivePlayer';
 import LiveBtn from './components/LiveBtn/LiveBtn';
+import StartScreen from './components/StartScreen';
 
 import { Home, Books, BookPage, SinglePage, BookSorting } from './pages';
 import Login from './components/Login';
@@ -49,6 +50,7 @@ ReactDOM.render(
             <Loader />
             <LivePlayer />
             <LiveBtn />
+            <StartScreen />
         </BrowserRouter>
     </Provider>,
     document.getElementById('root')

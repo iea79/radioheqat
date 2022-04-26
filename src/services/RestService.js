@@ -1,14 +1,9 @@
-// import React from 'react';
-
 const AUTH_KEY_VALUE = 'radioheqatOnline2022';
 
 export default class RestService {
 
-    // _wprest = 'http://radioheqat.frontendie.ru/wp-json/wp/v2';
-    // _auth = 'http://radioheqat.frontendie.ru/?rest_route=/simple-jwt-login/v1';
-    _wprest = 'https://adminheqiat.deessemedia.com/wp-json/wp/v2';
-    _auth = 'https://adminheqiat.deessemedia.com/?rest_route=/simple-jwt-login/v1';
-
+    _wprest = 'https://radioheqiat.fm/wp-json/wp/v2';
+    _auth = 'https://radioheqiat.fm/?rest_route=/simple-jwt-login/v1';
 
     async getResource(url) {
 

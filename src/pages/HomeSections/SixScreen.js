@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Lottie from "lottie-react";
+import Lottie, { useLottie } from "lottie-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -14,6 +14,30 @@ import img4 from '../../assets/img/david-4.png';
 // import sectionAnim from '../../assets/json/unicorn.json';
 import sectionAnim from '../../assets/json/david.json';
 import sectionAnim2 from '../../assets/json/david-bird.json';
+
+const SectionAnim = () => {
+    const options = {
+        animationData: sectionAnim,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const SectionAnim2 = () => {
+    const options = {
+        animationData: sectionAnim2,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
 
 if (typeof window !== `undefined`) {
     gsap.registerPlugin(ScrollTrigger);
@@ -96,10 +120,10 @@ const SixScreen = (prop) => {
                         <img src={ img1 } alt=""/>
                     </div>
                     <div className="layerDavid" ref={ pelayerDavid }>
-                        <Lottie animationData={ sectionAnim } />
+                        <SectionAnim />
                     </div>
                     <div className="layerBird" ref={ pelayerBird }>
-                        <Lottie animationData={ sectionAnim2 } />
+                        <SectionAnim2 />
                     </div>
                 </div>
                 : ''

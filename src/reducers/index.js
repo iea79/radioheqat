@@ -8,6 +8,8 @@ const initialState = {
     bookPlayed: false,
     live: true,
     livePaused: true,
+    liveLoader: false,
+    liveScreen: true,
     livePosition: 0,
     liveDuration: 0,
     token: false,
@@ -58,6 +60,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loaded: action.payload,
             };
+        case 'SET_LIVE_SCREEN':
+            return {
+                ...state,
+                liveScreen: action.payload,
+            };
         case 'LOGOUT':
             return {
                 ...state,
@@ -87,6 +94,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 live: action.payload
+            };
+        case 'SET_LIVE_LOADER':
+            return {
+                ...state,
+                liveLoader: action.payload
             };
         case 'SET_LIVE_PAUSED':
             return {

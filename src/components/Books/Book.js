@@ -1,32 +1,26 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import parser from 'html-react-parser';
 import AudioPlayer from '../AudioPlayer';
 import RestService from '../../services/RestService';
 import { setFavorites } from '../../actions/actions';
-import Lottie from 'lottie-react';
+import Lottie, { useLottie } from 'lottie-react';
 
 const restService = new RestService();
 
 const Book = ({props}) => {
     const bookId = props;
-    // console.log(bookId);
     const { token, userId, userFavorites } = useSelector(state => state);
-    // console.log(userFavorites);
     const [ book, setBook ] = useState(false);
     const [ anim, setAnim ] = useState(false);
     const [ active, setActive ] = useState(userFavorites.includes(`${bookId}`));
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
     const lottieRef = useRef();
-
-    // console.log('active', active);
 
     useEffect(()=>{
         if (!book) {
             restService.getBook(bookId).then(json => {
-                // console.log(json);
                 setBook(json);
                 setAnim(json.media.lotty);
             })
@@ -58,6 +52,19 @@ const Book = ({props}) => {
         if (anim) {
             lottieRef.current.pause();
         }
+    };
+
+    const LottieAnim = () => {
+        const options = {
+            lottieRef,
+            animationData: anim,
+            loop: true,
+            autoplay: false,
+        };
+
+        const { View } = useLottie(options);
+
+        return View;
     };
 
     if (!book) return false;

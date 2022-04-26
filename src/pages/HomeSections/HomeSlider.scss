@@ -34,6 +34,10 @@
         .swiper {
             overflow: inherit;
 
+            &-container {
+                overflow: inherit !important;
+            }
+
             &-slide {
                 padding-right: 0.75em;
 
@@ -42,7 +46,7 @@
                 }
             }
 
-            .swiper-button {
+            &-button {
                 &-next,
                 &-prev {
                     position: absolute;

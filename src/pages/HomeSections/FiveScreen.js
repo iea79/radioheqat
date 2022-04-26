@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Lottie from "lottie-react";
+import Lottie, { useLottie } from "lottie-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -15,6 +15,55 @@ import sectionAnim from '../../assets/json/people-woolf.json';
 import sectionAnim2 from '../../assets/json/people-man.json';
 import sectionAnim3 from '../../assets/json/people-bird.json';
 import sectionAnim4 from '../../assets/json/five-screen-bird.json';
+
+const SectionAnim = () => {
+    const options = {
+        animationData: sectionAnim,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const SectionAnim2 = () => {
+    const options = {
+        animationData: sectionAnim2,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const SectionAnim3 = () => {
+    const options = {
+        animationData: sectionAnim3,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const SectionAnim4 = () => {
+    const options = {
+        animationData: sectionAnim4,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
 
 if (typeof window !== `undefined`) {
     gsap.registerPlugin(ScrollTrigger);
@@ -74,7 +123,7 @@ const FiveScreen = (prop) => {
                 y: -10,
             });
         }
-    }, []);
+    }, [isMobile]);
 
     return (
         <section className="fiveScreen section" ref={ sectionPeople }>
@@ -99,16 +148,16 @@ const FiveScreen = (prop) => {
                         <img src={ img1 } alt=""/>
                     </div>
                     <div className="layerWoolf" ref={ pelayerWoolf }>
-                        <Lottie animationData={ sectionAnim } />
+                        <SectionAnim />
                     </div>
                     <div className="layerMan" ref={ pelayerMan }>
-                        <Lottie animationData={ sectionAnim2 } />
+                        <SectionAnim2 />
                     </div>
                     <div className="layerBirds" ref={ pelayerBirds }>
-                        <Lottie animationData={ sectionAnim3 } />
+                        <SectionAnim3 />
                     </div>
                     <div className="layerBird" ref={ pelayerBird }>
-                        <Lottie animationData={ sectionAnim4 } />
+                        <SectionAnim4 />
                     </div>
                 </div>
                 : ''

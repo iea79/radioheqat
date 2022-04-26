@@ -5,19 +5,12 @@ import { setLive } from '../../actions/actions';
 
 const HomePlayer = () => {
     const dispatch = useDispatch();
-    const { live, bookPlayed, liveDuration, livePosition } = useSelector(state => state);
+    const { live, bookPlayed, liveDuration, livePosition, liveLoader } = useSelector(state => state);
     const { media: { cover }, author: { name }, title } = bookPlayed;
     const duration = liveDuration;
 
     const playPause = () => {
         dispatch(setLive(!live));
-    }
-
-    const onScrub = (value) => {
-        // console.log('onScrub', value);
-        // dispatch(setLivePosition(value));
-        // dispatch(setLivePaused(false));
-        // setIsPlaying(!livePaused);
     }
 
     const currentPercentage = duration ? `${(livePosition / duration) * 100}%` : '0%';
@@ -26,6 +19,9 @@ const HomePlayer = () => {
         <div className="player">
             {
                 cover ? <div className="player__cover"><img src={ cover } alt={ title.rendered } /></div> : ''
+            }
+            {
+                liveLoader ? <div className="player__loader"><div className="player__loaderEl"></div></div> : ''
             }
             <div className="player__wrap">
                 <div className="player__btn" onClick={() => { playPause() }}>
@@ -39,23 +35,10 @@ const HomePlayer = () => {
                     className="player__progress"
                     >
                     <div className="player__bar" style={{ width: currentPercentage }}></div>
-                    <input
-                        type="range"
-                        value={livePosition}
-                        step="1"
-                        min="0"
-                        max={duration ? duration : `${duration}`}
-                        className="player__bar"
-                        onChange={(e) => onScrub(e.target.value)}
-                        />
                 </div>
             </div>
         </div>
     )
-    // if (props.book) {
-    // } else {
-    //     return false;
-    // }
 }
 
 export default HomePlayer;

@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Lottie from "lottie-react";
+import Lottie, { useLottie } from "lottie-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -24,6 +24,30 @@ import img7wp from '../../assets/img/autors-7.webp';
 // import sectionAnim from '../../assets/json/unicorn.json';
 import sectionAnim from '../../assets/json/authors-tiger.json';
 import sectionAnim2 from '../../assets/json/authors-wooman.json';
+
+const SectionAnim = () => {
+    const options = {
+        animationData: sectionAnim,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const SectionAnim2 = () => {
+    const options = {
+        animationData: sectionAnim2,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
 
 if (typeof window !== `undefined`) {
     gsap.registerPlugin(ScrollTrigger);
@@ -151,10 +175,10 @@ const SevenScreen = (prop) => {
                         </picture>
                     </div>
                     <div className="layerTiger" ref={ pelayerTiger }>
-                        <Lottie animationData={ sectionAnim } />
+                        <SectionAnim />
                     </div>
                     <div className="layerWooman" ref={ pelayerWooman }>
-                        <Lottie animationData={ sectionAnim2 } />
+                        <SectionAnim2 />
                     </div>
                 </div>
                 : ''

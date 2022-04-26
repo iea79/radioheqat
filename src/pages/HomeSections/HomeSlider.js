@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Navigation } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper.min.css';
 import RestService from '../../services/RestService';
 import { Book } from '../../components/Books';
@@ -18,13 +18,17 @@ const HomeSlider = (prop) => {
 
     useEffect(() => {
         if (!books.length) {
-            restService.getBooksList(four_screen_slider)
-                .then(json => {
-                    // console.log(json);
-                    setBook(json);
-                })
+            getSlideerBooks();
         }
     }, [books, four_screen_slider]);
+
+    const getSlideerBooks = useCallback(async () => {
+        await restService.getBooksList(four_screen_slider)
+            .then(json => {
+                console.log(json);
+                setBook(json);
+            }).catch(err => console.log(err));
+    }, [])
 
     return (
         <section className="fourScreen section">
@@ -36,12 +40,10 @@ const HomeSlider = (prop) => {
                     </div>
                     <div className="fourScreen__slider">
                         <Swiper
-                            modules={[Navigation]}
+                            modules={ [Navigation] }
                             navigation
                             spaceBetween={0}
                             slidesPerView={1}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
                             breakpoints={{
                                 768: {
                                     slidesPerView: 2
@@ -61,7 +63,8 @@ const HomeSlider = (prop) => {
                     </div>
                 </div>
             </div>
-        </section>    )
+        </section>
+    )
 }
 
 export default HomeSlider;

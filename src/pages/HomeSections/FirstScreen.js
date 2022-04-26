@@ -1,5 +1,5 @@
 import React, { useRef, useLayoutEffect } from 'react';
-import Lottie from "lottie-react";
+import Lottie, { useLottie } from "lottie-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from '../../components/Image';
@@ -26,6 +26,55 @@ import jarPtica from '../../assets/json/jar-ptica.json';
 import homeBird from '../../assets/json/first-bird.json';
 import homeLeaves from '../../assets/json/first-leaves.json';
 import homeFlower from '../../assets/json/first-flower.json';
+
+const JarPtica = () => {
+    const options = {
+        animationData: jarPtica,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const HomeBird = () => {
+    const options = {
+        animationData: homeBird,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const HomeLeaves = () => {
+    const options = {
+        animationData: homeLeaves,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
+const HomeFlower = () => {
+    const options = {
+        animationData: homeFlower,
+        loop: true,
+        autoplay: true,
+    };
+
+    const { View } = useLottie(options);
+
+    return View;
+};
+
 
 if (typeof window !== `undefined`) {
     gsap.registerPlugin(ScrollTrigger);
@@ -120,8 +169,12 @@ const HomeFirstScreen = (props) => {
                         className="layer4"
                         />
                 </div>
-                <Lottie className="anim anim1" animationData={ homeBird } />
-                <Lottie className="anim anim2" animationData={ homeLeaves } />
+                <div className="anim anim1">
+                    <HomeBird />
+                </div>
+                <div className="anim anim2">
+                    <HomeLeaves />
+                </div>
                 <div ref={ layerImg3 }>
                     <Image
                         src={layer3}
@@ -137,7 +190,7 @@ const HomeFirstScreen = (props) => {
                         />
                 </div>
                 <div className="anim anim3" ref={ layerFlower }>
-                    <Lottie animationData={ homeFlower } />
+                    <HomeFlower />
                 </div>
                 <div ref={ layerImg1 }>
                     <Image
@@ -147,7 +200,7 @@ const HomeFirstScreen = (props) => {
                         />
                 </div>
                 <div className="anim anim4" ref={ layerJarPtica }>
-                    <Lottie animationData={ jarPtica } />
+                    <JarPtica />
                 </div>
                 <div ref={ firstbg0 }>
                     <Image

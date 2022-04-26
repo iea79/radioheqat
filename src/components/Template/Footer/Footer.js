@@ -6,6 +6,7 @@ import './Footer.scss';
 
 import footerLogo from '../../../assets/img/logo-footer.png';
 import footerBg from '../../../assets/img/footer.png';
+import apples from '../../../assets/img/apples.png';
 import footerLogoWp from '../../../assets/img/logo-footer.webp';
 import footerBgWp from '../../../assets/img/footer.webp';
 
@@ -27,6 +28,9 @@ const Footer = () => {
             <picture className="footer__bg">
                 <source srcSet={footerBgWp} type="image/webp" />
                 <img src={footerBg} alt="Background"/>
+            </picture>
+            <picture className="footer__apples">
+                <img src={apples} alt=""/>
             </picture>
             <div className="footer__content">
                 <picture className="footer__logo">

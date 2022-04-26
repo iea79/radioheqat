@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import logo from '../../../assets/img/logo.png';
@@ -55,12 +55,12 @@ const Header = () => {
                             !token ?
                                 url !== '/dashboard/' ?
                                 <li className="menu__item" key={i}>
-                                    <NavLink to={ url } className={({ isActive }) => (isActive ? 'active' : 'inactive')} onClick={() => {setMenuOpen(!menuOpen)}}>{ parser(wrappedLetter(title)) }</NavLink>{/*Home*/}
+                                    <NavLink to={ url } className={({ isActive }) => (isActive ? 'active' : 'inactive')} onClick={() => {setMenuOpen(!menuOpen)}}>{ parser(wrappedLetter(title)) }</NavLink>
                                 </li> : ''
                             :
                                 url !== '/login' ?
                                 <li className="menu__item" key={i}>
-                                    <NavLink to={ url } className={({ isActive }) => (isActive ? 'active' : 'inactive')} onClick={() => {setMenuOpen(!menuOpen)}}>{ parser(wrappedLetter(title)) }</NavLink>{/*Home*/}
+                                    <NavLink to={ url } className={({ isActive }) => (isActive ? 'active' : 'inactive')} onClick={() => {setMenuOpen(!menuOpen)}}>{ parser(wrappedLetter(title)) }</NavLink>
                                 </li> : ''
 
                         )) : ''

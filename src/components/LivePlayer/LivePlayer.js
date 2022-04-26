@@ -1,121 +1,172 @@
-import React, { useState, useEffect, useRef } from 'react';
-// import RestService from '../../services/RestService';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLivePosition, setBookPlayed, setLiveDuration } from '../../actions/actions';
+import { setLivePosition, setLiveDuration, setLiveLoader, setLive, setBookPlayed, setLiveScreen } from '../../actions/actions';
 import RestService from '../../services/RestService';
+
+
+import { AudioPlayerProvider, useAudioPlayer, useAudioPosition } from "react-use-audio-player"
 
 import './livePlayer.scss';
 
 const restService = new RestService();
 
+const silence = process.env.PUBLIC_URL + "/250-milliseconds-of-silence.mp3";
+
 
 const HomePlayer = () => {
     const dispatch = useDispatch();
-    const { bookPlayed, live, livePaused, livePosition = 0, liveDuration = 0 } = useSelector(state => state);
-    const { media, id } = bookPlayed;
+    const { bookPlayed, live, livePaused, livePosition = 0 } = useSelector(state => state);
+    const { media: { audio } } = bookPlayed;
     const [ isEnded, setIsEnded ] = useState(false);
-    const audioRef = useRef(new Audio(media.audio));
-    const intervalRef = useRef();
-    let { duration } = audioRef.current;
+    const [ canplay, setCanPlay ] = useState(false);
+    const audioRef = useRef(new Audio(audio));
+    // const audioContext = useRef(new AudioContext());
+    const intervalRef = useRef(0);
+    let { muted } = audioRef.current;
 
+    // console.log('Live', live);
+    // console.log('livePaused', livePaused);
+    // console.log('Muted', muted);
+    if (muted) {
+        // audioRef.current.load();
+    }
 
     useEffect(() => {
-        if (!media.audio) {
-            return getNextBook();
+        if (live && !livePaused && !canplay) {
+            dispatch(setLiveScreen(true));
+        }
+    }, [])
+
+    useEffect(() => {
+
+        if (audio && canplay) {
+            dispatch(setLiveLoader(false));
+            if (live && !livePaused) {
+                audioRef.current.play();
+                audioRef.current.muted = false;
+            }
+        } else {
+            dispatch(setLiveLoader(true));
+            audioRef.current.load();
         }
 
+    }, [ canplay ]);
+
+    useEffect(() => {
+        console.log('Live', live);
+        console.log('livePaused', livePaused);
+        console.log('Muted', muted);
+        console.log('Can play', canplay);
         if (live) {
             if (livePaused) {
-                audioRef.current.pause();
+                pauseAudio();
             } else {
                 playAudio();
             }
         } else {
-            audioRef.current.pause();
+            pauseAudio();
         }
-    }, [ live, livePaused, media.audio ]);
+    }, [ live, livePaused ]);
 
     useEffect(() => {
         if (isEnded) {
             getNextBook();
-        } else {
-            if (!livePaused && live) {
-                playAudio();
-            }
         }
     }, [ isEnded ]);
 
-    const getNextBook = () => {
+    const getNextBook = useCallback(() => {
+        console.log('getNextBook');
+        audioRef.current.muted = true;
         restService.getBooks('?orderby=rand').then(json => {
             console.log(json[0]);
+            setIsEnded(false);
+            setCanPlay(false);
             dispatch(setBookPlayed(json[0]));
             dispatch(setLivePosition(0));
-            setIsEnded(false);
-            if (live && !livePaused) {
-                playAudio();
-            }
+            // dispatch(setLiveDuration(0));
         }).catch(() => {
             setIsEnded(true);
         })
-    }
+    }, [])
 
-    const startTimer = () => {
+    const startTimer = useCallback(() => {
         clearInterval(intervalRef.current);
+        console.log(audioRef.current);
 
         intervalRef.current = setInterval(() => {
-            dispatch(setLivePosition(audioRef.current.currentTime));
-            dispatch(setLiveDuration(audioRef.current.duration));
-            audioRef.current.onended = () => {
-                setIsEnded(true);
-            }
+            dispatch(setLiveDuration(audioRef.current && audioRef.current.duration ? audioRef.current.duration : 0));
+            dispatch(setLivePosition(audioRef.current && audioRef.current.currentTime ? audioRef.current.currentTime : 0));
         }, [1000]);
-    }
+    }, [])
 
-    const playAudio = () => {
-        if (!media.audio) return false;
-
-        const promise = audioRef.current.play();
-
-        // navigator.mediaDevices.getUserMedia({audio: true, video: false})
-        // .then(function(stream) {
-        //     console.log(stream);
-        // })
-        // .catch(function(err) {
-        //     console.log(err);
-        //     /* обработка ошибки */
-        // });
-
-        if (!promise) {
-            return getNextBook();
-        }
-
-
-        if (promise !== undefined) {
-            audioRef.current.muted = true;
-            promise.then(() => {
+    const playAudio = useCallback(async () => {
+        // if (canplay) {
+            audioRef.current.play().then((e) => {
+                console.log('connected audio');
                 audioRef.current.currentTime = livePosition;
                 audioRef.current.muted = false;
+                audioRef.current.volume = 1;
                 startTimer();
-            }).catch(() => {
-                audioRef.current.currentTime = livePosition;
-                setTimeout(function () {
-                    audioRef.current.play();
-                    audioRef.current.muted = false;
-                    startTimer();
-                }, 100);
             })
-        }
-    }
+            .catch((e) => {
+                console.log('error connected audio', e);
+                pauseAudio();
+                dispatch(setLive(false));
+            });
+        // } else {
+        //     audioRef.current.src = audio;
+        //     audioRef.current.load();
+        // }
+
+    }, [])
+
+    const pauseAudio = useCallback(() => {
+        clearInterval(intervalRef.current);
+        audioRef.current.pause();
+    }, [])
 
     return (
-        <div className="livePlayer" key={id}>
-            <div className="livePlayer__wrap">
-                <div
-                    className="livePlayer__btn"
-                    >
-                    { !livePaused ? <i className="icon_pause"></i> : <i className="icon_play"></i> }
-                </div>
-            </div>
+        <div className="livePlayer">
+            {/*<iframe src={silence} allow="autoplay" className="hidden"></iframe>*/}
+            <audio
+                ref={audioRef}
+                controls
+                src={audio}
+                style={{
+                    display: 'none'
+                }}
+                autoPlay
+                muted
+                onPlaying={() => {
+                    dispatch(setLiveLoader(false));
+                    dispatch(setLiveScreen(false));
+                    dispatch(setLive(true));
+                }}
+                onCanPlayThrough={() => {
+                    dispatch(setLiveLoader(false));
+                    setCanPlay(true);
+                    if (live && ! livePaused) {
+                        // playAudio();
+                    }
+                }}
+                onCanPlay={() => {
+                    dispatch(setLiveLoader(false));
+                    setCanPlay(true);
+                    if (live && ! livePaused) {
+                        // playAudio();
+                    }
+                }}
+                onEnded={() => {
+                    setIsEnded(true);
+                }}
+                onError={(e) => {
+                    dispatch(setLive(false));
+                    console.log(e);
+                }}
+            >
+                {/*<source src={audio} type="audio/mp3" />*/}
+            </audio>
+
         </div>
     )
 }
