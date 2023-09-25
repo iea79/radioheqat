@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { AudioPlayerProvider } from "react-use-audio-player";
+
 
 import App from './App';
 import Header from './components/Template/Header';
@@ -48,7 +50,9 @@ ReactDOM.render(
             <Message />
             <Footer />
             <Loader />
-            <LivePlayer />
+            <AudioPlayerProvider>
+                <LivePlayer file={process.env.PUBLIC_URL + "/250-milliseconds-of-silence.mp3"}/>
+            </AudioPlayerProvider>
             <LiveBtn />
             <StartScreen />
         </BrowserRouter>
